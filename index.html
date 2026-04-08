@@ -1,139 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>CyberSec Warning Hub</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Security Breach Simulation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: "Courier New", monospace;
-            background: black;
-            color: #00ff9f;
-        }
+<style>
+    body {
+        margin: 0;
+        background: black;
+        color: #00ff9f;
+        font-family: "Courier New", monospace;
+        overflow: hidden;
+    }
 
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 1px solid #00ff9f;
-        }
+    .center {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-        h1 {
-            font-size: 2.5em;
-            color: #00ff9f;
-        }
+    h1 {
+        color: red;
+        font-size: 2.5em;
+    }
 
-        .warning {
-            color: red;
-            font-size: 1.3em;
-            margin-top: 20px;
-        }
+    .terminal {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 40%;
+        background: black;
+        border-top: 1px solid #00ff9f;
+        padding: 10px;
+        overflow-y: auto;
+        font-size: 0.9em;
+    }
 
-        section {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: auto;
-        }
+    .file {
+        position: absolute;
+        color: #00ff9f;
+        font-size: 12px;
+        animation: move 5s linear infinite;
+    }
 
-        .card {
-            border: 1px solid #00ff9f;
-            padding: 20px;
-            margin: 20px 0;
-            transition: 0.3s;
+    @keyframes move {
+        from {
+            transform: translateX(-100px);
         }
+        to {
+            transform: translateX(110vw);
+        }
+    }
 
-        .card:hover {
-            background: #001a12;
-        }
+    .encrypt {
+        color: red;
+        font-weight: bold;
+    }
 
-        .attack {
-            color: #ff4d4d;
-        }
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
-        .cta {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        button {
-            background: transparent;
-            border: 1px solid #00ff9f;
-            color: #00ff9f;
-            padding: 15px 30px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #00ff9f;
-            color: black;
-        }
-
-        .terminal {
-            background: #000;
-            border: 1px solid #00ff9f;
-            padding: 20px;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-    </style>
+    .ransom {
+        color: red;
+        font-size: 1.5em;
+    }
+</style>
 </head>
 
 <body>
 
-<header>
-    <h1>⚠️ Si esto hubiera sido un hackeo real…</h1>
-    <p class="warning">Ya estarías frito.</p>
-    <p>Tu red puede parecer segura… hasta que deja de serlo.</p>
-</header>
+<div class="center">
+    <h1>⚠ ACCESO NO AUTORIZADO ⚠</h1>
+    <p>Si esto hubiera sido un ataque real… ya estarías comprometido.</p>
+</div>
 
-<section>
-    <h2>¿Qué hacemos?</h2>
+<div class="terminal" id="terminal"></div>
 
-    <div class="card">
-        <h3>🔀 Routing & Switching</h3>
-        <p>Diseño y optimización de redes para máximo rendimiento.</p>
+<div class="overlay" id="overlay">
+    <div class="ransom">
+        <h2>TUS ARCHIVOS HAN SIDO ENCRIPTADOS</h2>
+        <p>Todos tus datos han sido comprometidos.</p>
+        <p>Para recuperarlos, necesitas una clave privada.</p>
+        <p>Tiempo restante: <span id="timer">60</span> segundos</p>
     </div>
+</div>
 
-    <div class="card">
-        <h3>🛡️ Ciberseguridad</h3>
-        <p>Protección contra ataques, intrusiones y vulnerabilidades.</p>
-    </div>
+<script>
+    const terminal = document.getElementById("terminal");
+    const overlay = document.getElementById("overlay");
+    const timer = document.getElementById("timer");
 
-    <div class="card">
-        <h3>🌐 Infraestructura IT</h3>
-        <p>Soluciones completas para mantener tu negocio siempre activo.</p>
-    </div>
-</section>
+    const messages = [
+        "Iniciando conexión remota...",
+        "Bypass de firewall... OK",
+        "Escaneando red interna...",
+        "Detectando vulnerabilidades...",
+        "Acceso a archivos...",
+        "Extrayendo datos sensibles...",
+        "Iniciando proceso de encriptación..."
+    ];
 
-<section>
-    <h2 class="attack">Simulación de ataque</h2>
+    let i = 0;
 
-    <div class="terminal">
-        > Iniciando acceso...<br>
-        > Bypass de seguridad... OK<br>
-        > Accediendo a datos sensibles... OK<br>
-        > Extrayendo información... OK<br>
-        > Eliminando rastros... OK<br>
-        <br>
-        > ✔ Acceso no autorizado<br>
-        > ✔ Datos comprometidos<br>
-        > ✔ Servicios caídos<br>
-    </div>
+    function typeLine() {
+        if (i < messages.length) {
+            let line = document.createElement("div");
+            line.textContent = "> " + messages[i];
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+            i++;
+            setTimeout(typeLine, 1000);
+        } else {
+            startEncryption();
+        }
+    }
 
-    <p class="attack">
-        Esto fue solo una advertencia... pero un atacante real no te avisará.
-    </p>
-</section>
+    function startEncryption() {
+        let count = 0;
 
-<section class="cta">
-    <h2>🚨 No esperes a ser la próxima víctima</h2>
-    <button onclick="alert('Contáctanos para una auditoría de seguridad')">
-        Evaluar mi seguridad
-    </button>
-</section>
+        let encryptInterval = setInterval(() => {
+            let line = document.createElement("div");
+            line.innerHTML = "> <span class='encrypt'>ENCRIPTANDO:</span> archivo_" + count + ".dat";
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+            count++;
+
+            createFile();
+
+            if (count > 20) {
+                clearInterval(encryptInterval);
+                showRansom();
+            }
+        }, 200);
+    }
+
+    function createFile() {
+        let file = document.createElement("div");
+        file.className = "file";
+        file.style.top = Math.random() * 100 + "vh";
+        file.textContent = "archivo.dat";
+        document.body.appendChild(file);
+
+        setTimeout(() => {
+            file.remove();
+        }, 5000);
+    }
+
+    function showRansom() {
+        overlay.style.display = "flex";
+
+        let timeLeft = 60;
+
+        let countdown = setInterval(() => {
+            timeLeft--;
+            timer.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timer.textContent = "PERDIDO";
+            }
+        }, 1000);
+    }
+
+    typeLine();
+</script>
 
 </body>
 </html>

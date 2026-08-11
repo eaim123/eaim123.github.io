@@ -1,0 +1,2388 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="RSC WordForge - Advanced Wordlist Generator para Kali Linux."
+    >
+
+    <title>
+        RSC WordForge | Advanced Wordlist Generator
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+
+            --bg:
+                #03080d;
+
+            --panel:
+                #07111b;
+
+            --panel-light:
+                #0b1c2c;
+
+            --blue:
+                #00a8ff;
+
+            --blue-light:
+                #58d8ff;
+
+            --red:
+                #ff304f;
+
+            --green:
+                #4cff91;
+
+            --text:
+                #edf6fc;
+
+            --muted:
+                #8fa7b8;
+
+            --border:
+                rgba(255, 255, 255, 0.09);
+
+            --max-width:
+                1180px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+
+            margin:
+                0;
+
+            padding:
+                0;
+
+            box-sizing:
+                border-box;
+        }
+
+
+        html {
+
+            scroll-behavior:
+                smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            line-height:
+                1.6;
+        }
+
+
+        a {
+
+            text-decoration:
+                none;
+
+            color:
+                inherit;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        header {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                1000;
+
+            background:
+                rgba(3, 8, 13, 0.94);
+
+            backdrop-filter:
+                blur(14px);
+
+            border-bottom:
+                1px solid
+                var(--border);
+        }
+
+
+        nav {
+
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+
+            min-height:
+                70px;
+
+            padding:
+                0 24px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                25px;
+        }
+
+
+        .brand {
+
+            font-size:
+                1.25rem;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .brand .blue {
+
+            color:
+                var(--blue);
+        }
+
+
+        .brand .red {
+
+            color:
+                var(--red);
+        }
+
+
+        .nav-links {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                25px;
+
+            font-size:
+                0.90rem;
+        }
+
+
+        .nav-links a {
+
+            color:
+                #c6d5df;
+
+            transition:
+                0.25s;
+        }
+
+
+        .nav-links a:hover {
+
+            color:
+                var(--blue-light);
+        }
+
+
+        .nav-links .back {
+
+            padding:
+                8px 14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                7px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
+
+            padding:
+                80px 24px;
+
+            background:
+
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(0, 168, 255, 0.13),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 75% 60%,
+                    rgba(255, 48, 79, 0.05),
+                    transparent 35%
+                );
+        }
+
+
+        .hero-container {
+
+            width:
+                100%;
+
+            max-width:
+                1000px;
+
+            margin:
+                auto;
+        }
+
+
+        .wordforge-logo {
+
+            display:
+                block;
+
+            width:
+                min(430px, 88vw);
+
+            height:
+                auto;
+
+            margin:
+                0 auto 25px;
+
+            filter:
+
+                drop-shadow(
+                    0 0 22px
+                    rgba(0, 168, 255, 0.18)
+                );
+        }
+
+
+        .badge {
+
+            display:
+                inline-block;
+
+            margin-bottom:
+                18px;
+
+            padding:
+                6px 13px;
+
+            border-radius:
+                999px;
+
+            border:
+                1px solid
+                rgba(76, 255, 145, 0.30);
+
+            background:
+                rgba(76, 255, 145, 0.07);
+
+            color:
+                var(--green);
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .eyebrow {
+
+            color:
+                var(--blue);
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                3px;
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        h1 {
+
+            font-size:
+
+                clamp(
+                    2.8rem,
+                    7vw,
+                    5.5rem
+                );
+
+            line-height:
+                1.05;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        h1 .rsc {
+
+            color:
+                var(--blue);
+        }
+
+
+        h1 .forge {
+
+            color:
+                var(--red);
+        }
+
+
+        .hero-description {
+
+            max-width:
+                800px;
+
+            margin:
+                0 auto 20px;
+
+            color:
+                #b9c9d6;
+
+            font-size:
+                1.10rem;
+        }
+
+
+        .version {
+
+            color:
+                var(--muted);
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .hero-buttons {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                215px;
+
+            padding:
+                13px 24px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                700;
+
+            transition:
+                0.25s;
+        }
+
+
+        .button-primary {
+
+            background:
+                var(--blue);
+
+            color:
+                #00101b;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-primary:hover {
+
+            background:
+                var(--blue-light);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 0 25px
+                rgba(0, 168, 255, 0.30);
+        }
+
+
+        .button-secondary {
+
+            color:
+                var(--text);
+
+            background:
+                transparent;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-secondary:hover {
+
+            background:
+                rgba(0, 168, 255, 0.08);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        section {
+
+            padding:
+                90px 24px;
+        }
+
+
+        .container {
+
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+        }
+
+
+        .section-heading {
+
+            text-align:
+                center;
+
+            max-width:
+                800px;
+
+            margin:
+                0 auto 50px;
+        }
+
+
+        .section-heading .small {
+
+            color:
+                var(--blue);
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                3px;
+
+            text-transform:
+                uppercase;
+
+            font-size:
+                0.78rem;
+        }
+
+
+        .section-heading h2 {
+
+            margin-top:
+                10px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+        }
+
+
+        .section-heading p {
+
+            color:
+                var(--muted);
+        }
+
+
+        /* =========================================================
+           INTERFAZ
+        ========================================================= */
+
+        .interface-section {
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 168, 255, 0.035),
+                    transparent
+                );
+        }
+
+
+        .interface-frame {
+
+            max-width:
+                1080px;
+
+            margin:
+                auto;
+
+            padding:
+                2px;
+
+            border-radius:
+                18px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    rgba(88, 216, 255, 0.25),
+                    var(--red)
+                );
+
+            box-shadow:
+
+                0 30px 75px
+                rgba(0, 0, 0, 0.55),
+
+                0 0 35px
+                rgba(0, 168, 255, 0.10);
+        }
+
+
+        .interface-inner {
+
+            padding:
+                10px;
+
+            border-radius:
+                16px;
+
+            background:
+                #02070c;
+        }
+
+
+        .interface-inner img {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                auto;
+
+            border-radius:
+                10px;
+
+            border:
+
+                1px solid
+                rgba(255, 255, 255, 0.08);
+        }
+
+
+        .interface-caption {
+
+            text-align:
+                center;
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FEATURES
+        ========================================================= */
+
+        .feature-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap:
+                22px;
+        }
+
+
+        .feature-card {
+
+            padding:
+                30px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+            transition:
+                0.3s;
+        }
+
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(0, 168, 255, 0.55);
+
+            box-shadow:
+
+                0 18px 45px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        .feature-icon {
+
+            font-size:
+                2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .feature-card h3 {
+
+            margin-bottom:
+                10px;
+
+            font-size:
+                1.25rem;
+        }
+
+
+        .feature-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           CHARSETS
+        ========================================================= */
+
+        .charset-section {
+
+            background:
+                rgba(0, 0, 0, 0.14);
+        }
+
+
+        .charset-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(190px, 1fr)
+                );
+
+            gap:
+                18px;
+        }
+
+
+        .charset-card {
+
+            padding:
+                28px 20px;
+
+            text-align:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(11, 28, 44, 0.95),
+                    rgba(4, 11, 18, 0.95)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            transition:
+                0.25s;
+        }
+
+
+        .charset-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(0, 168, 255, 0.50);
+        }
+
+
+        .charset-card strong {
+
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                1.15rem;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .charset-card span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        /* =========================================================
+           PATTERNS
+        ========================================================= */
+
+        .pattern-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                20px;
+
+            max-width:
+                950px;
+
+            margin:
+                auto;
+        }
+
+
+        .pattern-card {
+
+            padding:
+                32px 22px;
+
+            text-align:
+                center;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+        }
+
+
+        .pattern-symbol {
+
+            display:
+                block;
+
+            color:
+                var(--green);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            font-size:
+                2rem;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .pattern-card h3 {
+
+            color:
+                var(--blue-light);
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .pattern-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.90rem;
+        }
+
+
+        /* =========================================================
+           TERMINAL
+        ========================================================= */
+
+        .terminal-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                14px;
+
+            background:
+                #010407;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.28);
+
+            box-shadow:
+
+                0 18px 50px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        .terminal-header {
+
+            padding:
+                13px 18px;
+
+            background:
+                #0b1219;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.82rem;
+
+            border-bottom:
+
+                1px solid
+                rgba(255, 255, 255, 0.07);
+        }
+
+
+        .terminal {
+
+            padding:
+                27px;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #bdeaff;
+
+            line-height:
+                2;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .terminal-line {
+
+            white-space:
+                nowrap;
+        }
+
+
+        .prompt {
+
+            color:
+                var(--green);
+
+            margin-right:
+                8px;
+        }
+
+
+        .command {
+
+            color:
+                #f4f8fc;
+        }
+
+
+        /* =========================================================
+           DOWNLOAD
+        ========================================================= */
+
+        .download-section {
+
+            background:
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .download-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                55px 30px;
+
+            text-align:
+                center;
+
+            border-radius:
+                18px;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.30);
+
+            background:
+
+                radial-gradient(
+                    circle at top,
+                    rgba(0, 168, 255, 0.11),
+                    transparent 60%
+                ),
+
+                var(--panel);
+        }
+
+
+        .download-box h2 {
+
+            font-size:
+                2.2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .download-box > p {
+
+            max-width:
+                670px;
+
+            margin:
+                0 auto 25px;
+
+            color:
+                var(--muted);
+        }
+
+
+        .download-buttons {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+
+            margin-bottom:
+                25px;
+        }
+
+
+        .download-info {
+
+            margin-top:
+                22px !important;
+
+            margin-bottom:
+                12px !important;
+
+            color:
+                #c6d5df !important;
+
+            font-size:
+                0.92rem;
+        }
+
+
+        .checksum {
+
+            max-width:
+                760px !important;
+
+            margin:
+                0 auto 28px !important;
+
+            padding:
+                15px;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid
+                rgba(0, 168, 255, 0.22);
+
+            color:
+                var(--muted) !important;
+
+            font-size:
+                0.82rem !important;
+
+            overflow-wrap:
+                anywhere;
+        }
+
+
+        .checksum code {
+
+            color:
+                var(--green);
+
+            font-family:
+                "Courier New",
+                monospace;
+        }
+
+
+        .install-title {
+
+            margin-top:
+                30px;
+
+            margin-bottom:
+                12px;
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                700;
+        }
+
+
+        .install-command {
+
+            max-width:
+                650px;
+
+            margin:
+                10px auto 0;
+
+            padding:
+                15px 20px;
+
+            text-align:
+                left;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid
+                rgba(0, 168, 255, 0.22);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #dff6ff;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .install-command span {
+
+            color:
+                var(--green);
+        }
+
+
+        .download-note {
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.85rem;
+        }
+
+
+        /* =========================================================
+           EDUCATIONAL NOTICE
+        ========================================================= */
+
+        .education-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                40px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--panel);
+        }
+
+
+        .education-box h2 {
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .education-box p {
+
+            color:
+                var(--muted);
+
+            max-width:
+                720px;
+
+            margin:
+                auto;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            padding:
+                48px 24px;
+
+            text-align:
+                center;
+
+            background:
+                #02060a;
+
+            border-top:
+                1px solid
+                var(--border);
+        }
+
+
+        .footer-brand {
+
+            font-size:
+                1.3rem;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                7px;
+        }
+
+
+        footer p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        .developer {
+
+            margin-top:
+                10px;
+
+            color:
+                #d9e6ef;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .pattern-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .wordforge-logo {
+
+                width:
+                    min(350px, 82vw);
+            }
+        }
+
+
+        @media (max-width: 760px) {
+
+            .nav-links a:not(.back) {
+
+                display:
+                    none;
+            }
+
+
+            .hero {
+
+                min-height:
+                    auto;
+
+                padding-top:
+                    60px;
+            }
+
+
+            section {
+
+                padding:
+                    65px 18px;
+            }
+
+
+            .education-box {
+
+                padding:
+                    30px 22px;
+            }
+
+
+            .pattern-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .terminal {
+
+                font-size:
+                    0.82rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+    <nav>
+
+        <a
+            href="../../"
+            class="brand"
+        >
+
+            <span class="blue">
+                RSC
+            </span>
+
+            Word<span class="red">Forge</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#interfaz">
+                Interfaz
+            </a>
+
+            <a href="#caracteristicas">
+                Características
+            </a>
+
+            <a href="#patrones">
+                Patrones
+            </a>
+
+            <a href="#instalacion">
+                Instalación
+            </a>
+
+            <a
+                href="../../"
+                class="back"
+            >
+                ← Volver a RSC
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+        <img
+            src="../../assets/images/rsc-wordforge.png"
+            alt="RSC WordForge"
+            class="wordforge-logo"
+        >
+
+
+        <div>
+
+            <span class="badge">
+                Disponible
+            </span>
+
+        </div>
+
+
+        <div class="eyebrow">
+
+            Advanced Wordlist Generator
+
+        </div>
+
+
+        <h1>
+
+            <span class="rsc">
+                RSC
+            </span>
+
+            Word<span class="forge">Forge</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Generador educativo de wordlists para Kali Linux
+            diseñado para crear combinaciones mediante conjuntos
+            de caracteres, patrones y configuraciones personalizadas,
+            con estimación previa y control de la generación.
+
+        </p>
+
+
+        <div class="version">
+
+            Versión 0.1.0
+            • Kali Linux
+            • CLI + GUI
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#instalacion"
+                class="button button-primary"
+            >
+                Descargar para Kali
+            </a>
+
+
+            <a
+                href="#interfaz"
+                class="button button-secondary"
+            >
+                Ver la aplicación
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERFAZ
+========================================================= -->
+
+<section
+    id="interfaz"
+    class="interface-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Interfaz gráfica
+            </span>
+
+
+            <h2>
+                RSC WordForge en acción
+            </h2>
+
+
+            <p>
+
+                Configure visualmente los conjuntos de caracteres,
+                longitudes y ubicación del archivo de salida,
+                supervise el progreso y detenga la generación
+                cuando sea necesario.
+
+            </p>
+
+        </div>
+
+
+        <div class="interface-frame">
+
+            <div class="interface-inner">
+
+                <img
+                    src="../../assets/images/interfaz-wordforge.png"
+                    alt="Interfaz gráfica de RSC WordForge"
+                >
+
+            </div>
+
+        </div>
+
+
+        <p class="interface-caption">
+
+            Interfaz gráfica de RSC WordForge 0.1.0
+            ejecutándose en Kali Linux.
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CARACTERÍSTICAS
+========================================================= -->
+
+<section id="caracteristicas">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Funcionalidades
+            </span>
+
+
+            <h2>
+                Construya sus propias wordlists
+            </h2>
+
+
+            <p>
+
+                RSC WordForge reúne generación, estimación
+                y control dentro de una misma herramienta
+                gráfica y de línea de comandos.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Combinaciones
+                </h3>
+
+                <p>
+
+                    Genere todas las combinaciones posibles
+                    utilizando las longitudes y conjuntos de
+                    caracteres seleccionados.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🧩
+                </div>
+
+                <h3>
+                    Patrones
+                </h3>
+
+                <p>
+
+                    Construya wordlists utilizando plantillas
+                    que permiten definir el tipo de carácter
+                    para cada posición.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Estimación
+                </h3>
+
+                <p>
+
+                    Calcule previamente la cantidad de
+                    combinaciones y el tamaño aproximado
+                    de la lista antes de generarla.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ⏹️
+                </div>
+
+                <h3>
+                    Control de generación
+                </h3>
+
+                <p>
+
+                    Supervise el progreso en tiempo real y
+                    detenga una generación inmediatamente,
+                    conservando el archivo parcial generado.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CHARSETS
+========================================================= -->
+
+<section class="charset-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Conjuntos
+            </span>
+
+
+            <h2>
+                Seleccione qué desea combinar
+            </h2>
+
+
+            <p>
+
+                La interfaz permite combinar diferentes
+                conjuntos de caracteres o definir uno
+                completamente personalizado.
+
+            </p>
+
+        </div>
+
+
+        <div class="charset-grid">
+
+
+            <div class="charset-card">
+
+                <strong>
+                    a-z
+                </strong>
+
+                <span>
+                    Letras minúsculas
+                </span>
+
+            </div>
+
+
+            <div class="charset-card">
+
+                <strong>
+                    A-Z
+                </strong>
+
+                <span>
+                    Letras mayúsculas
+                </span>
+
+            </div>
+
+
+            <div class="charset-card">
+
+                <strong>
+                    0-9
+                </strong>
+
+                <span>
+                    Números
+                </span>
+
+            </div>
+
+
+            <div class="charset-card">
+
+                <strong>
+                    !@#...
+                </strong>
+
+                <span>
+                    Caracteres especiales
+                </span>
+
+            </div>
+
+
+            <div class="charset-card">
+
+                <strong>
+                    Personalizado
+                </strong>
+
+                <span>
+                    Defina su propio charset
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PATRONES
+========================================================= -->
+
+<section id="patrones">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Pattern Engine
+            </span>
+
+
+            <h2>
+                Generación mediante patrones
+            </h2>
+
+
+            <p>
+
+                Defina el tipo de carácter que debe ocupar
+                cada posición para construir listas más
+                específicas.
+
+            </p>
+
+        </div>
+
+
+        <div class="pattern-grid">
+
+
+            <div class="pattern-card">
+
+                <span class="pattern-symbol">
+                    @
+                </span>
+
+                <h3>
+                    Minúsculas
+                </h3>
+
+                <p>
+                    Letras de a hasta z.
+                </p>
+
+            </div>
+
+
+            <div class="pattern-card">
+
+                <span class="pattern-symbol">
+                    ,
+                </span>
+
+                <h3>
+                    Mayúsculas
+                </h3>
+
+                <p>
+                    Letras de A hasta Z.
+                </p>
+
+            </div>
+
+
+            <div class="pattern-card">
+
+                <span class="pattern-symbol">
+                    %
+                </span>
+
+                <h3>
+                    Números
+                </h3>
+
+                <p>
+                    Dígitos de 0 hasta 9.
+                </p>
+
+            </div>
+
+
+            <div class="pattern-card">
+
+                <span class="pattern-symbol">
+                    ^
+                </span>
+
+                <h3>
+                    Especiales
+                </h3>
+
+                <p>
+                    Caracteres especiales.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CLI
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                CLI + GUI
+            </span>
+
+
+            <h2>
+                Utilícelo como usted prefiera
+            </h2>
+
+
+            <p>
+
+                Puede trabajar desde la interfaz gráfica
+                o utilizar directamente RSC WordForge
+                desde la terminal de Kali Linux.
+
+            </p>
+
+        </div>
+
+
+        <div class="terminal-box">
+
+
+            <div class="terminal-header">
+
+                kali@rsc:~
+
+            </div>
+
+
+            <div class="terminal">
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-wordforge start
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-wordforge generate --min 4 --max 4 --preset digits --output numeros.txt
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-wordforge pattern --template "@@%%" --output wordlist.txt
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-wordforge estimate --min 6 --max 6 --preset alnum
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-wordforge status
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INSTALACIÓN
+========================================================= -->
+
+<section
+    id="instalacion"
+    class="download-section"
+>
+
+    <div class="container">
+
+
+        <div class="download-box">
+
+
+            <div class="eyebrow">
+
+                Kali Linux
+
+            </div>
+
+
+            <h2>
+                Instalar RSC WordForge
+            </h2>
+
+
+            <p>
+
+                Descargue el paquete Debian oficial de
+                RSC WordForge 0.1.0 e instálelo directamente
+                en Kali Linux.
+
+            </p>
+
+
+            <div class="download-buttons">
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-wordforge/releases/download/v0.1.0/rsc-wordforge_0.1.0_amd64.deb"
+                    class="button button-primary"
+                >
+                    Descargar RSC WordForge 0.1.0
+                </a>
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-wordforge"
+                    class="button button-secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ver código en GitHub
+                </a>
+
+
+            </div>
+
+
+            <p class="download-info">
+
+                Kali Linux • AMD64 • Versión 0.1.0
+
+            </p>
+
+
+            <p class="checksum">
+
+                SHA-256:
+                <code>
+                    e0016460262e7e539befda6215befa2232c51be53163d38b923ad370fb84569d
+                </code>
+
+            </p>
+
+
+            <div class="install-title">
+
+                1. Actualizar los repositorios
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt update
+
+            </div>
+
+
+            <div class="install-title">
+
+                2. Instalar el paquete descargado
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt install ./rsc-wordforge_0.1.0_amd64.deb
+
+            </div>
+
+
+            <div class="install-title">
+
+                3. Iniciar RSC WordForge
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                rsc-wordforge start
+
+            </div>
+
+
+            <div class="download-note">
+
+                Después de la instalación también puede
+                iniciar RSC WordForge desde el menú de
+                aplicaciones de Kali Linux.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EDUCACIÓN
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="education-box">
+
+
+            <div class="eyebrow">
+
+                RSC Education
+
+            </div>
+
+
+            <h2>
+
+                Creado para aprender y experimentar
+
+            </h2>
+
+
+            <p>
+
+                RSC WordForge forma parte de la familia
+                de herramientas educativas RSC.
+                Su propósito es facilitar el estudio
+                práctico de generación de wordlists,
+                espacios de búsqueda, patrones y
+                combinaciones dentro de entornos
+                controlados de laboratorio y formación
+                en ciberseguridad.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        RSC WordForge
+
+    </div>
+
+
+    <p>
+
+        Advanced Wordlist Generator
+
+    </p>
+
+
+    <p class="developer">
+
+        Desarrollado por Eddy Infante M
+
+    </p>
+
+
+    <p>
+
+        © 2026 RSC
+        • Routing
+        • Switching
+        • Cyber
+
+    </p>
+
+
+    <p>
+
+        Herramienta desarrollada con fines
+        educativos y de laboratorio.
+
+    </p>
+
+
+</footer>
+
+
+</body>
+
+</html>

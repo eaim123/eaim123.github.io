@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,12 +10,15 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>RSC StegLab | Multimedia Steganography Toolkit</title>
+    <title>
+        RSC StegLab | Multimedia Steganography Toolkit
+    </title>
 
     <meta
         name="description"
         content="RSC StegLab - Laboratorio educativo multimedia de esteganografía para imágenes, audio y video."
     >
+
 
     <style>
 
@@ -51,14 +55,20 @@
         ========================================================= */
 
         * {
+
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+
         }
 
+
         html {
+
             scroll-behavior: smooth;
+
         }
+
 
         body {
 
@@ -92,15 +102,22 @@
             color: var(--text);
 
             line-height: 1.6;
+
         }
+
 
         a {
+
             color: inherit;
             text-decoration: none;
+
         }
 
+
         img {
+
             max-width: 100%;
+
         }
 
 
@@ -124,65 +141,96 @@
 
             border-bottom:
                 1px solid var(--border);
+
         }
+
 
         nav {
 
-            max-width: var(--max-width);
+            max-width:
+                var(--max-width);
 
-            margin: auto;
+            margin:
+                auto;
 
-            padding: 17px 24px;
+            padding:
+                17px 24px;
 
-            display: flex;
+            display:
+                flex;
 
-            justify-content: space-between;
+            justify-content:
+                space-between;
 
-            align-items: center;
+            align-items:
+                center;
+
         }
 
 
         .brand {
 
-            font-size: 1.35rem;
+            font-size:
+                1.35rem;
 
-            font-weight: 800;
+            font-weight:
+                800;
 
-            letter-spacing: 2px;
+            letter-spacing:
+                2px;
+
         }
+
 
         .brand .blue {
-            color: var(--blue);
+
+            color:
+                var(--blue);
+
         }
 
+
         .brand .red {
-            color: var(--red);
+
+            color:
+                var(--red);
+
         }
 
 
         .nav-links {
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            gap: 26px;
+            gap:
+                26px;
 
-            color: #c9d8e4;
+            color:
+                #c9d8e4;
 
-            font-size: 0.94rem;
+            font-size:
+                0.94rem;
+
         }
 
 
         .nav-links a {
 
-            transition: 0.25s;
+            transition:
+                0.25s;
+
         }
 
 
         .nav-links a:hover {
 
-            color: var(--blue-light);
+            color:
+                var(--blue-light);
+
         }
 
 
@@ -191,11 +239,15 @@
             border:
                 1px solid var(--border);
 
-            border-radius: 7px;
+            border-radius:
+                7px;
 
-            padding: 8px 14px;
+            padding:
+                8px 14px;
 
-            color: var(--blue-light);
+            color:
+                var(--blue-light);
+
         }
 
 
@@ -203,6 +255,7 @@
 
             background:
                 rgba(0, 168, 255, 0.08);
+
         }
 
 
@@ -212,40 +265,53 @@
 
         .hero {
 
-            min-height: 820px;
+            min-height:
+                820px;
 
             padding:
                 70px 24px
                 90px;
 
-            position: relative;
+            position:
+                relative;
 
-            overflow: hidden;
+            overflow:
+                hidden;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
+
         }
 
 
         .hero::before {
 
-            content: "";
+            content:
+                "";
 
-            position: absolute;
+            position:
+                absolute;
 
-            width: 900px;
+            width:
+                900px;
 
-            height: 900px;
+            height:
+                900px;
 
-            left: 50%;
+            left:
+                50%;
 
-            top: -350px;
+            top:
+                -350px;
 
             transform:
                 translateX(-50%);
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             background:
 
@@ -255,25 +321,34 @@
                     transparent 65%
                 );
 
-            pointer-events: none;
+            pointer-events:
+                none;
+
         }
 
 
         .hero::after {
 
-            content: "";
+            content:
+                "";
 
-            position: absolute;
+            position:
+                absolute;
 
-            width: 650px;
+            width:
+                650px;
 
-            height: 650px;
+            height:
+                650px;
 
-            right: -300px;
+            right:
+                -300px;
 
-            bottom: -250px;
+            bottom:
+                -250px;
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             background:
 
@@ -283,23 +358,32 @@
                     transparent 65%
                 );
 
-            pointer-events: none;
+            pointer-events:
+                none;
+
         }
 
 
         .hero-container {
 
-            width: 100%;
+            width:
+                100%;
 
-            max-width: var(--max-width);
+            max-width:
+                var(--max-width);
 
-            margin: auto;
+            margin:
+                auto;
 
-            position: relative;
+            position:
+                relative;
 
-            z-index: 2;
+            z-index:
+                2;
 
-            text-align: center;
+            text-align:
+                center;
+
         }
 
 
@@ -316,7 +400,8 @@
                 0 auto
                 30px;
 
-            display: block;
+            display:
+                block;
 
             filter:
 
@@ -324,12 +409,14 @@
                     0 0 30px
                     rgba(0, 168, 255, 0.25)
                 );
+
         }
 
 
         .badge {
 
-            display: inline-block;
+            display:
+                inline-block;
 
             padding:
                 5px 13px;
@@ -361,6 +448,7 @@
 
             text-transform:
                 uppercase;
+
         }
 
 
@@ -383,12 +471,14 @@
 
             margin-bottom:
                 15px;
+
         }
 
 
         h1 {
 
             font-size:
+
                 clamp(
                     3rem,
                     7vw,
@@ -400,15 +490,23 @@
 
             margin-bottom:
                 22px;
+
         }
 
 
         h1 .rsc {
-            color: var(--blue);
+
+            color:
+                var(--blue);
+
         }
 
+
         h1 .lab {
-            color: var(--red);
+
+            color:
+                var(--red);
+
         }
 
 
@@ -426,6 +524,7 @@
 
             font-size:
                 1.10rem;
+
         }
 
 
@@ -436,12 +535,14 @@
 
             margin-bottom:
                 30px;
+
         }
 
 
         .hero-buttons {
 
-            display: flex;
+            display:
+                flex;
 
             justify-content:
                 center;
@@ -451,6 +552,7 @@
 
             gap:
                 14px;
+
         }
 
 
@@ -483,6 +585,7 @@
 
             transition:
                 0.25s;
+
         }
 
 
@@ -497,6 +600,7 @@
             border:
                 1px solid
                 var(--blue);
+
         }
 
 
@@ -512,6 +616,7 @@
 
                 0 0 25px
                 rgba(0, 168, 255, 0.30);
+
         }
 
 
@@ -526,6 +631,7 @@
             border:
                 1px solid
                 var(--blue);
+
         }
 
 
@@ -533,6 +639,7 @@
 
             background:
                 rgba(0, 168, 255, 0.08);
+
         }
 
 
@@ -544,6 +651,7 @@
 
             padding:
                 90px 24px;
+
         }
 
 
@@ -554,6 +662,7 @@
 
             margin:
                 auto;
+
         }
 
 
@@ -568,6 +677,7 @@
             margin:
                 0 auto
                 50px;
+
         }
 
 
@@ -587,6 +697,7 @@
 
             font-size:
                 0.78rem;
+
         }
 
 
@@ -605,6 +716,7 @@
                     4vw,
                     3rem
                 );
+
         }
 
 
@@ -612,6 +724,7 @@
 
             color:
                 var(--muted);
+
         }
 
 
@@ -629,6 +742,7 @@
                     rgba(0, 168, 255, 0.035),
                     transparent
                 );
+
         }
 
 
@@ -662,6 +776,7 @@
 
                 0 0 35px
                 rgba(0, 168, 255, 0.10);
+
         }
 
 
@@ -675,6 +790,7 @@
 
             background:
                 #02070c;
+
         }
 
 
@@ -696,6 +812,7 @@
 
                 1px solid
                 rgba(255, 255, 255, 0.08);
+
         }
 
 
@@ -712,6 +829,7 @@
 
             font-size:
                 0.92rem;
+
         }
 
 
@@ -733,6 +851,7 @@
 
             gap:
                 22px;
+
         }
 
 
@@ -753,6 +872,7 @@
 
             transition:
                 0.3s;
+
         }
 
 
@@ -768,6 +888,7 @@
 
                 0 18px 45px
                 rgba(0, 0, 0, 0.28);
+
         }
 
 
@@ -778,6 +899,7 @@
 
             margin-bottom:
                 15px;
+
         }
 
 
@@ -788,6 +910,7 @@
 
             font-size:
                 1.25rem;
+
         }
 
 
@@ -798,6 +921,7 @@
 
             font-size:
                 0.92rem;
+
         }
 
 
@@ -809,6 +933,7 @@
 
             background:
                 rgba(0, 0, 0, 0.14);
+
         }
 
 
@@ -826,6 +951,7 @@
 
             gap:
                 18px;
+
         }
 
 
@@ -854,6 +980,7 @@
 
             transition:
                 0.25s;
+
         }
 
 
@@ -864,6 +991,7 @@
 
             border-color:
                 rgba(0, 168, 255, 0.50);
+
         }
 
 
@@ -880,6 +1008,7 @@
 
             margin-bottom:
                 8px;
+
         }
 
 
@@ -890,6 +1019,7 @@
 
             font-size:
                 0.88rem;
+
         }
 
 
@@ -913,6 +1043,7 @@
 
             margin:
                 auto;
+
         }
 
 
@@ -933,6 +1064,7 @@
 
             border-radius:
                 14px;
+
         }
 
 
@@ -943,6 +1075,7 @@
 
             margin-bottom:
                 8px;
+
         }
 
 
@@ -953,6 +1086,7 @@
 
             font-size:
                 0.90rem;
+
         }
 
 
@@ -986,6 +1120,7 @@
 
                 0 18px 50px
                 rgba(0, 0, 0, 0.35);
+
         }
 
 
@@ -1007,6 +1142,7 @@
 
                 1px solid
                 rgba(255, 255, 255, 0.07);
+
         }
 
 
@@ -1027,6 +1163,7 @@
 
             overflow-x:
                 auto;
+
         }
 
 
@@ -1037,6 +1174,7 @@
 
             margin-right:
                 8px;
+
         }
 
 
@@ -1044,6 +1182,7 @@
 
             color:
                 #f4f8fc;
+
         }
 
 
@@ -1055,6 +1194,7 @@
 
             background:
                 rgba(0, 0, 0, 0.12);
+
         }
 
 
@@ -1089,6 +1229,7 @@
                 ),
 
                 var(--panel);
+
         }
 
 
@@ -1099,6 +1240,7 @@
 
             margin-bottom:
                 15px;
+
         }
 
 
@@ -1113,29 +1255,134 @@
 
             color:
                 var(--muted);
+
         }
 
 
-        .download-note {
+        .download-actions {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
 
             margin-top:
-                22px;
+                28px;
+
+        }
+
+
+        .download-info {
+
+            margin-top:
+                22px !important;
+
+            margin-bottom:
+                0 !important;
 
             color:
                 var(--muted);
 
             font-size:
-                0.85rem;
+                0.90rem;
+
+        }
+
+
+        .checksum-box {
+
+            max-width:
+                760px;
+
+            margin:
+                20px auto
+                0;
+
+            padding:
+                18px 20px;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(0, 0, 0, 0.28);
+
+            border:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .checksum-title {
+
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .checksum-box code {
+
+            display:
+                block;
+
+            color:
+                #d8e8f3;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            font-size:
+                0.80rem;
+
+            word-break:
+                break-all;
+
+        }
+
+
+        .install-title {
+
+            margin-top:
+                30px;
+
+            color:
+                #d9e6ef;
+
+            font-size:
+                0.92rem;
+
+            font-weight:
+                600;
+
         }
 
 
         .install-command {
 
             max-width:
-                560px;
+                650px;
 
             margin:
-                28px auto
+                16px auto
                 0;
 
             padding:
@@ -1157,6 +1404,10 @@
 
             color:
                 #dff6ff;
+
+            overflow-x:
+                auto;
+
         }
 
 
@@ -1164,6 +1415,49 @@
 
             color:
                 var(--green);
+
+        }
+
+
+        .release-link {
+
+            display:
+                inline-block;
+
+            margin-top:
+                22px;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                0.88rem;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .release-link:hover {
+
+            color:
+                var(--text);
+
+        }
+
+
+        .download-note {
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.85rem;
+
         }
 
 
@@ -1194,6 +1488,7 @@
 
             background:
                 var(--panel);
+
         }
 
 
@@ -1201,6 +1496,7 @@
 
             margin-bottom:
                 15px;
+
         }
 
 
@@ -1214,6 +1510,7 @@
 
             margin:
                 auto;
+
         }
 
 
@@ -1235,6 +1532,7 @@
             border-top:
                 1px solid
                 var(--border);
+
         }
 
 
@@ -1248,6 +1546,7 @@
 
             margin-bottom:
                 7px;
+
         }
 
 
@@ -1258,6 +1557,7 @@
 
             font-size:
                 0.88rem;
+
         }
 
 
@@ -1268,6 +1568,7 @@
 
             color:
                 #d9e6ef;
+
         }
 
 
@@ -1281,6 +1582,7 @@
 
                 grid-template-columns:
                     1fr;
+
             }
 
 
@@ -1288,7 +1590,9 @@
 
                 width:
                     min(350px, 82vw);
+
             }
+
         }
 
 
@@ -1298,6 +1602,7 @@
 
                 display:
                     none;
+
             }
 
 
@@ -1308,6 +1613,7 @@
 
                 padding-top:
                     60px;
+
             }
 
 
@@ -1315,6 +1621,7 @@
 
                 padding:
                     65px 18px;
+
             }
 
 
@@ -1322,7 +1629,9 @@
 
                 padding:
                     30px 22px;
+
             }
+
         }
 
     </style>
@@ -1342,6 +1651,7 @@
 
     <nav>
 
+
         <a
             href="../../"
             class="brand"
@@ -1358,28 +1668,36 @@
 
         <div class="nav-links">
 
+
             <a href="#interfaz">
                 Interfaz
             </a>
+
 
             <a href="#caracteristicas">
                 Características
             </a>
 
+
             <a href="#formatos">
                 Formatos
             </a>
+
 
             <a href="#instalacion">
                 Instalación
             </a>
 
+
             <a
                 href="../../"
                 class="back"
             >
+
                 ← Volver a RSC
+
             </a>
+
 
         </div>
 
@@ -1401,13 +1719,6 @@
     <div class="hero-container">
 
 
-        <!--
-            LOGO ESPECÍFICO DE RSC STEGLAB
-
-            Ruta real:
-            /assets/images/rsc-steglab.png
-        -->
-
         <img
             src="../../assets/images/rsc-steglab.png"
             alt="RSC StegLab"
@@ -1418,7 +1729,9 @@
         <div>
 
             <span class="badge">
+
                 Disponible
+
             </span>
 
         </div>
@@ -1463,11 +1776,14 @@
 
         <div class="hero-buttons">
 
+
             <a
                 href="#instalacion"
                 class="button button-primary"
             >
+
                 Descargar para Kali
+
             </a>
 
 
@@ -1475,8 +1791,11 @@
                 href="#interfaz"
                 class="button button-secondary"
             >
+
                 Ver la aplicación
+
             </a>
+
 
         </div>
 
@@ -1501,13 +1820,18 @@
 
         <div class="section-heading">
 
+
             <span class="small">
+
                 Interfaz gráfica
+
             </span>
 
 
             <h2>
+
                 RSC StegLab en acción
+
             </h2>
 
 
@@ -1520,24 +1844,20 @@
 
             </p>
 
+
         </div>
 
-
-        <!--
-            CAPTURA REAL DE LA APLICACIÓN
-
-            Ruta:
-            /assets/images/interfaz-steglab.png
-        -->
 
         <div class="interface-frame">
 
             <div class="interface-inner">
 
+
                 <img
                     src="../../assets/images/interfaz-steglab.png"
                     alt="Interfaz gráfica de RSC StegLab"
                 >
+
 
             </div>
 
@@ -1569,13 +1889,18 @@
 
         <div class="section-heading">
 
+
             <span class="small">
+
                 Funcionalidades
+
             </span>
 
 
             <h2>
+
                 Un laboratorio multimedia
+
             </h2>
 
 
@@ -1587,6 +1912,7 @@
 
             </p>
 
+
         </div>
 
 
@@ -1595,13 +1921,20 @@
 
             <article class="feature-card">
 
+
                 <div class="feature-icon">
+
                     🔎
+
                 </div>
 
+
                 <h3>
+
                     Analizar
+
                 </h3>
+
 
                 <p>
 
@@ -1611,18 +1944,26 @@
 
                 </p>
 
+
             </article>
 
 
             <article class="feature-card">
 
+
                 <div class="feature-icon">
+
                     🧪
+
                 </div>
 
+
                 <h3>
+
                     Inspeccionar
+
                 </h3>
+
 
                 <p>
 
@@ -1632,18 +1973,26 @@
 
                 </p>
 
+
             </article>
 
 
             <article class="feature-card">
 
+
                 <div class="feature-icon">
+
                     🔐
+
                 </div>
 
+
                 <h3>
+
                     Ocultar
+
                 </h3>
+
 
                 <p>
 
@@ -1654,18 +2003,26 @@
 
                 </p>
 
+
             </article>
 
 
             <article class="feature-card">
 
+
                 <div class="feature-icon">
+
                     📤
+
                 </div>
 
+
                 <h3>
+
                     Extraer
+
                 </h3>
+
 
                 <p>
 
@@ -1675,6 +2032,7 @@
                     su integridad.
 
                 </p>
+
 
             </article>
 
@@ -1701,13 +2059,18 @@
 
         <div class="section-heading">
 
+
             <span class="small">
+
                 Motores disponibles
+
             </span>
 
 
             <h2>
+
                 Formatos soportados
+
             </h2>
 
 
@@ -1719,6 +2082,7 @@
 
             </p>
 
+
         </div>
 
 
@@ -1727,65 +2091,100 @@
 
             <div class="format-card">
 
+
                 <strong>
+
                     PNG
+
                 </strong>
 
+
                 <span>
+
                     LSB sobre canales de imagen
+
                 </span>
+
 
             </div>
 
 
             <div class="format-card">
 
+
                 <strong>
+
                     JPEG
+
                 </strong>
 
+
                 <span>
+
                     Coeficientes DCT
+
                 </span>
+
 
             </div>
 
 
             <div class="format-card">
 
+
                 <strong>
+
                     WAV
+
                 </strong>
 
+
                 <span>
+
                     PCM / LSB de muestras
+
                 </span>
+
 
             </div>
 
 
             <div class="format-card">
 
+
                 <strong>
+
                     MKV
+
                 </strong>
 
+
                 <span>
+
                     FFV1 / Luma-LSB
+
                 </span>
+
 
             </div>
 
 
             <div class="format-card">
 
+
                 <strong>
+
                     MP4
+
                 </strong>
 
+
                 <span>
+
                     H.264 Lossless QP=0
+
                 </span>
+
 
             </div>
 
@@ -1809,13 +2208,18 @@
 
         <div class="section-heading">
 
+
             <span class="small">
+
                 Protección
+
             </span>
 
 
             <h2>
+
                 Cifrado e integridad
+
             </h2>
 
 
@@ -1827,6 +2231,7 @@
 
             </p>
 
+
         </div>
 
 
@@ -1835,9 +2240,13 @@
 
             <div class="security-card">
 
+
                 <h3>
+
                     AES-GCM
+
                 </h3>
+
 
                 <p>
 
@@ -1847,14 +2256,19 @@
 
                 </p>
 
+
             </div>
 
 
             <div class="security-card">
 
+
                 <h3>
+
                     SHA-256
+
                 </h3>
+
 
                 <p>
 
@@ -1864,14 +2278,19 @@
 
                 </p>
 
+
             </div>
 
 
             <div class="security-card">
 
+
                 <h3>
+
                     Payload v2
+
                 </h3>
+
 
                 <p>
 
@@ -1880,6 +2299,7 @@
                     metadatos e integridad.
 
                 </p>
+
 
             </div>
 
@@ -1903,13 +2323,18 @@
 
         <div class="section-heading">
 
+
             <span class="small">
+
                 CLI + GUI
+
             </span>
 
 
             <h2>
+
                 Utilícelo como usted prefiera
+
             </h2>
 
 
@@ -1921,6 +2346,7 @@
                 la terminal.
 
             </p>
+
 
         </div>
 
@@ -2044,42 +2470,129 @@
 
             <p>
 
-                RSC StegLab será distribuido mediante
-                un paquete Debian para facilitar su
-                instalación en Kali Linux.
+                Descargue el paquete Debian oficial
+                de RSC StegLab 0.6.0 para Kali Linux.
+
+                El instalador incluye la aplicación,
+                interfaz gráfica y los componentes
+                necesarios para ejecutar RSC StegLab.
 
             </p>
 
 
-            <!--
-                ESTE BOTÓN TODAVÍA NO DESCARGA.
+            <div class="download-actions">
 
-                Cuando tengamos el .deb publicado,
-                sustituiremos # por el enlace real.
-            -->
 
-            <a
-                href="#"
-                class="button button-primary"
-            >
+                <a
+                    href="https://github.com/eaim123/rsc-steglab/releases/download/v0.6.0/rsc-steglab_0.6.0_amd64.deb"
+                    class="button button-primary"
+                >
 
-                Descargar RSC StegLab 0.6.0
+                    Descargar RSC StegLab 0.6.0
 
-            </a>
+                </a>
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-steglab"
+                    class="button button-secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    Ver código fuente en GitHub
+
+                </a>
+
+
+            </div>
+
+
+            <p class="download-info">
+
+                Kali Linux
+                • AMD64
+                • Versión 0.6.0
+                • Paquete Debian
+
+            </p>
+
+
+            <div class="checksum-box">
+
+
+                <span class="checksum-title">
+
+                    SHA-256 del instalador
+
+                </span>
+
+
+                <code>
+b757be008bc97c11d00ec08fde9f109d7ac2346f353f9c30272c28226fa318e4
+                </code>
+
+
+            </div>
+
+
+            <div class="install-title">
+
+                Después de descargar el archivo:
+
+            </div>
 
 
             <div class="install-command">
 
                 <span>$</span>
-                sudo apt install rsc-steglab
+
+                sudo apt install ./rsc-steglab_0.6.0_amd64.deb
 
             </div>
 
 
+            <div class="install-title">
+
+                Abrir RSC StegLab:
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+
+                rsc-steglab start
+
+            </div>
+
+
+            <a
+                href="https://github.com/eaim123/rsc-steglab/releases/tag/v0.6.0"
+                class="release-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                Ver información del Release v0.6.0 →
+
+            </a>
+
+
             <div class="download-note">
 
-                La instalación mediante APT se habilitará
-                cuando publiquemos el repositorio oficial RSC.
+                Próximamente RSC contará con su propio
+                repositorio APT, permitiendo instalar
+                y actualizar las aplicaciones mediante:
+
+                <br><br>
+
+                <strong>
+
+                    sudo apt install rsc-steglab
+
+                </strong>
 
             </div>
 
@@ -2122,6 +2635,7 @@
 
                 RSC StegLab forma parte de la familia
                 de herramientas educativas RSC.
+
                 Su propósito es facilitar el estudio
                 práctico de técnicas de esteganografía,
                 procesamiento multimedia, cifrado e

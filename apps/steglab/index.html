@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>RSC StegLab | Multimedia Steganography Toolkit</title>
+
+    <meta
+        name="description"
+        content="RSC StegLab - Laboratorio educativo multimedia de esteganografía para imágenes, audio y video."
+    >
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+
+            --bg: #03070d;
+            --bg-soft: #07111d;
+
+            --panel: rgba(9, 22, 36, 0.90);
+            --panel-dark: rgba(4, 11, 18, 0.96);
+
+            --blue: #00a8ff;
+            --blue-light: #58d8ff;
+
+            --red: #ff334f;
+
+            --green: #38d996;
+
+            --text: #f4f8fc;
+            --muted: #93a9bb;
+
+            --border: rgba(67, 186, 255, 0.20);
+
+            --max-width: 1200px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+
+                radial-gradient(
+                    circle at 20% 0%,
+                    rgba(0, 168, 255, 0.16),
+                    transparent 32%
+                ),
+
+                radial-gradient(
+                    circle at 85% 15%,
+                    rgba(255, 51, 79, 0.08),
+                    transparent 28%
+                ),
+
+                linear-gradient(
+                    180deg,
+                    #02060b 0%,
+                    #06101a 50%,
+                    #02060b 100%
+                );
+
+            color: var(--text);
+
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(3, 7, 13, 0.93);
+
+            backdrop-filter:
+                blur(14px);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        nav {
+
+            max-width: var(--max-width);
+
+            margin: auto;
+
+            padding: 17px 24px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .brand {
+
+            font-size: 1.35rem;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+        .brand .blue {
+            color: var(--blue);
+        }
+
+        .brand .red {
+            color: var(--red);
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 26px;
+
+            color: #c9d8e4;
+
+            font-size: 0.94rem;
+        }
+
+
+        .nav-links a {
+
+            transition: 0.25s;
+        }
+
+
+        .nav-links a:hover {
+
+            color: var(--blue-light);
+        }
+
+
+        .back {
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 7px;
+
+            padding: 8px 14px;
+
+            color: var(--blue-light);
+        }
+
+
+        .back:hover {
+
+            background:
+                rgba(0, 168, 255, 0.08);
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            min-height: 820px;
+
+            padding:
+                70px 24px
+                90px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 900px;
+
+            height: 900px;
+
+            left: 50%;
+
+            top: -350px;
+
+            transform:
+                translateX(-50%);
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(0, 168, 255, 0.14),
+                    transparent 65%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 650px;
+
+            height: 650px;
+
+            right: -300px;
+
+            bottom: -250px;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(255, 51, 79, 0.08),
+                    transparent 65%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .hero-container {
+
+            width: 100%;
+
+            max-width: var(--max-width);
+
+            margin: auto;
+
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           LOGO STEGLAB
+        ========================================================= */
+
+        .steglab-logo {
+
+            width:
+                min(430px, 85vw);
+
+            margin:
+                0 auto
+                30px;
+
+            display: block;
+
+            filter:
+
+                drop-shadow(
+                    0 0 30px
+                    rgba(0, 168, 255, 0.25)
+                );
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding:
+                5px 13px;
+
+            margin-bottom:
+                17px;
+
+            border-radius:
+                30px;
+
+            color:
+                var(--green);
+
+            background:
+                rgba(56, 217, 150, 0.10);
+
+            border:
+                1px solid
+                rgba(56, 217, 150, 0.30);
+
+            font-size:
+                0.74rem;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .eyebrow {
+
+            color:
+                var(--blue-light);
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                4px;
+
+            font-size:
+                0.80rem;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        h1 {
+
+            font-size:
+                clamp(
+                    3rem,
+                    7vw,
+                    5.5rem
+                );
+
+            line-height:
+                1;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        h1 .rsc {
+            color: var(--blue);
+        }
+
+        h1 .lab {
+            color: var(--red);
+        }
+
+
+        .hero-description {
+
+            max-width:
+                780px;
+
+            margin:
+                0 auto
+                20px;
+
+            color:
+                #b9c9d6;
+
+            font-size:
+                1.10rem;
+        }
+
+
+        .version {
+
+            color:
+                var(--muted);
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                195px;
+
+            padding:
+                13px 24px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                700;
+
+            transition:
+                0.25s;
+        }
+
+
+        .button-primary {
+
+            background:
+                var(--blue);
+
+            color:
+                #00101b;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-primary:hover {
+
+            background:
+                var(--blue-light);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 0 25px
+                rgba(0, 168, 255, 0.30);
+        }
+
+
+        .button-secondary {
+
+            color:
+                var(--text);
+
+            background:
+                transparent;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-secondary:hover {
+
+            background:
+                rgba(0, 168, 255, 0.08);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        section {
+
+            padding:
+                90px 24px;
+        }
+
+
+        .container {
+
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+        }
+
+
+        .section-heading {
+
+            text-align:
+                center;
+
+            max-width:
+                780px;
+
+            margin:
+                0 auto
+                50px;
+        }
+
+
+        .section-heading .small {
+
+            color:
+                var(--blue);
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                3px;
+
+            text-transform:
+                uppercase;
+
+            font-size:
+                0.78rem;
+        }
+
+
+        .section-heading h2 {
+
+            margin-top:
+                10px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+        }
+
+
+        .section-heading p {
+
+            color:
+                var(--muted);
+        }
+
+
+        /* =========================================================
+           INTERFAZ
+        ========================================================= */
+
+        .interface-section {
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 168, 255, 0.035),
+                    transparent
+                );
+        }
+
+
+        .interface-frame {
+
+            max-width:
+                1080px;
+
+            margin:
+                auto;
+
+            padding:
+                2px;
+
+            border-radius:
+                18px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    rgba(88, 216, 255, 0.25),
+                    var(--red)
+                );
+
+            box-shadow:
+
+                0 30px 75px
+                rgba(0, 0, 0, 0.55),
+
+                0 0 35px
+                rgba(0, 168, 255, 0.10);
+        }
+
+
+        .interface-inner {
+
+            padding:
+                10px;
+
+            border-radius:
+                16px;
+
+            background:
+                #02070c;
+        }
+
+
+        .interface-inner img {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                auto;
+
+            border-radius:
+                10px;
+
+            border:
+
+                1px solid
+                rgba(255, 255, 255, 0.08);
+        }
+
+
+        .interface-caption {
+
+            text-align:
+                center;
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FEATURES
+        ========================================================= */
+
+        .feature-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap:
+                22px;
+        }
+
+
+        .feature-card {
+
+            padding:
+                30px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+            transition:
+                0.3s;
+        }
+
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(0, 168, 255, 0.55);
+
+            box-shadow:
+
+                0 18px 45px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        .feature-icon {
+
+            font-size:
+                2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .feature-card h3 {
+
+            margin-bottom:
+                10px;
+
+            font-size:
+                1.25rem;
+        }
+
+
+        .feature-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FORMATOS
+        ========================================================= */
+
+        .formats-section {
+
+            background:
+                rgba(0, 0, 0, 0.14);
+        }
+
+
+        .formats-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(200px, 1fr)
+                );
+
+            gap:
+                18px;
+        }
+
+
+        .format-card {
+
+            padding:
+                28px 20px;
+
+            text-align:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(11, 28, 44, 0.95),
+                    rgba(4, 11, 18, 0.95)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            transition:
+                0.25s;
+        }
+
+
+        .format-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(0, 168, 255, 0.50);
+        }
+
+
+        .format-card strong {
+
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                1.25rem;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .format-card span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        /* =========================================================
+           SECURITY
+        ========================================================= */
+
+        .security-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                20px;
+
+            max-width:
+                950px;
+
+            margin:
+                auto;
+        }
+
+
+        .security-card {
+
+            padding:
+                32px 22px;
+
+            text-align:
+                center;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+        }
+
+
+        .security-card h3 {
+
+            color:
+                var(--blue-light);
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .security-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.90rem;
+        }
+
+
+        /* =========================================================
+           TERMINAL
+        ========================================================= */
+
+        .terminal-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                14px;
+
+            background:
+                #010407;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.28);
+
+            box-shadow:
+
+                0 18px 50px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        .terminal-header {
+
+            padding:
+                13px 18px;
+
+            background:
+                #0b1219;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.82rem;
+
+            border-bottom:
+
+                1px solid
+                rgba(255, 255, 255, 0.07);
+        }
+
+
+        .terminal {
+
+            padding:
+                27px;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #bdeaff;
+
+            line-height:
+                2;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .prompt {
+
+            color:
+                var(--green);
+
+            margin-right:
+                8px;
+        }
+
+
+        .command {
+
+            color:
+                #f4f8fc;
+        }
+
+
+        /* =========================================================
+           DOWNLOAD
+        ========================================================= */
+
+        .download-section {
+
+            background:
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .download-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                55px 30px;
+
+            text-align:
+                center;
+
+            border-radius:
+                18px;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.30);
+
+            background:
+
+                radial-gradient(
+                    circle at top,
+                    rgba(0, 168, 255, 0.11),
+                    transparent 60%
+                ),
+
+                var(--panel);
+        }
+
+
+        .download-box h2 {
+
+            font-size:
+                2.2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .download-box p {
+
+            max-width:
+                670px;
+
+            margin:
+                0 auto
+                25px;
+
+            color:
+                var(--muted);
+        }
+
+
+        .download-note {
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.85rem;
+        }
+
+
+        .install-command {
+
+            max-width:
+                560px;
+
+            margin:
+                28px auto
+                0;
+
+            padding:
+                15px 20px;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid
+                rgba(0, 168, 255, 0.22);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #dff6ff;
+        }
+
+
+        .install-command span {
+
+            color:
+                var(--green);
+        }
+
+
+        /* =========================================================
+           EDUCATIONAL NOTICE
+        ========================================================= */
+
+        .education-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                40px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--panel);
+        }
+
+
+        .education-box h2 {
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .education-box p {
+
+            color:
+                var(--muted);
+
+            max-width:
+                720px;
+
+            margin:
+                auto;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            padding:
+                48px 24px;
+
+            text-align:
+                center;
+
+            background:
+                #02060a;
+
+            border-top:
+                1px solid
+                var(--border);
+        }
+
+
+        .footer-brand {
+
+            font-size:
+                1.3rem;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                7px;
+        }
+
+
+        footer p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        .developer {
+
+            margin-top:
+                10px;
+
+            color:
+                #d9e6ef;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .security-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .steglab-logo {
+
+                width:
+                    min(350px, 82vw);
+            }
+        }
+
+
+        @media (max-width: 760px) {
+
+            .nav-links a:not(.back) {
+
+                display:
+                    none;
+            }
+
+
+            .hero {
+
+                min-height:
+                    auto;
+
+                padding-top:
+                    60px;
+            }
+
+
+            section {
+
+                padding:
+                    65px 18px;
+            }
+
+
+            .education-box {
+
+                padding:
+                    30px 22px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+    <nav>
+
+        <a
+            href="../../"
+            class="brand"
+        >
+
+            <span class="blue">
+                RSC
+            </span>
+
+            Steg<span class="red">Lab</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#interfaz">
+                Interfaz
+            </a>
+
+            <a href="#caracteristicas">
+                Características
+            </a>
+
+            <a href="#formatos">
+                Formatos
+            </a>
+
+            <a href="#instalacion">
+                Instalación
+            </a>
+
+            <a
+                href="../../"
+                class="back"
+            >
+                ← Volver a RSC
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+        <!--
+            LOGO ESPECÍFICO DE RSC STEGLAB
+
+            Ruta real:
+            /assets/images/rsc-steglab.png
+        -->
+
+        <img
+            src="../../assets/images/rsc-steglab.png"
+            alt="RSC StegLab"
+            class="steglab-logo"
+        >
+
+
+        <div>
+
+            <span class="badge">
+                Disponible
+            </span>
+
+        </div>
+
+
+        <div class="eyebrow">
+
+            Multimedia Steganography Toolkit
+
+        </div>
+
+
+        <h1>
+
+            <span class="rsc">
+                RSC
+            </span>
+
+            Steg<span class="lab">Lab</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Laboratorio educativo multimedia de
+            esteganografía diseñado para analizar,
+            ocultar, inspeccionar y extraer información
+            utilizando imágenes, audio y video.
+
+        </p>
+
+
+        <div class="version">
+
+            Versión 0.6.0
+            • Kali Linux
+            • CLI + GUI
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#instalacion"
+                class="button button-primary"
+            >
+                Descargar para Kali
+            </a>
+
+
+            <a
+                href="#interfaz"
+                class="button button-secondary"
+            >
+                Ver la aplicación
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INTERFAZ REAL
+========================================================= -->
+
+<section
+    id="interfaz"
+    class="interface-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Interfaz gráfica
+            </span>
+
+
+            <h2>
+                RSC StegLab en acción
+            </h2>
+
+
+            <p>
+
+                RSC StegLab proporciona una interfaz
+                gráfica para trabajar con los diferentes
+                motores de esteganografía de manera
+                sencilla y visual.
+
+            </p>
+
+        </div>
+
+
+        <!--
+            CAPTURA REAL DE LA APLICACIÓN
+
+            Ruta:
+            /assets/images/interfaz-steglab.png
+        -->
+
+        <div class="interface-frame">
+
+            <div class="interface-inner">
+
+                <img
+                    src="../../assets/images/interfaz-steglab.png"
+                    alt="Interfaz gráfica de RSC StegLab"
+                >
+
+            </div>
+
+        </div>
+
+
+        <p class="interface-caption">
+
+            Interfaz gráfica de RSC StegLab 0.6.0
+            ejecutándose en Kali Linux.
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CARACTERÍSTICAS
+========================================================= -->
+
+<section id="caracteristicas">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Funcionalidades
+            </span>
+
+
+            <h2>
+                Un laboratorio multimedia
+            </h2>
+
+
+            <p>
+
+                RSC StegLab reúne diferentes técnicas
+                de esteganografía dentro de una sola
+                herramienta educativa.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Analizar
+                </h3>
+
+                <p>
+
+                    Examina las características
+                    del carrier y estima automáticamente
+                    su capacidad esteganográfica.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🧪
+                </div>
+
+                <h3>
+                    Inspeccionar
+                </h3>
+
+                <p>
+
+                    Detecta payloads de RSC StegLab
+                    y muestra información sobre
+                    el archivo oculto.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Ocultar
+                </h3>
+
+                <p>
+
+                    Oculta archivos dentro de
+                    imágenes, audio o video y
+                    permite protegerlos mediante
+                    contraseña.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📤
+                </div>
+
+                <h3>
+                    Extraer
+                </h3>
+
+                <p>
+
+                    Recupera archivos ocultos,
+                    descifra el contenido y
+                    comprueba automáticamente
+                    su integridad.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FORMATOS
+========================================================= -->
+
+<section
+    id="formatos"
+    class="formats-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Motores disponibles
+            </span>
+
+
+            <h2>
+                Formatos soportados
+            </h2>
+
+
+            <p>
+
+                Cada tipo de carrier utiliza una
+                técnica adaptada a las características
+                de su formato.
+
+            </p>
+
+        </div>
+
+
+        <div class="formats-grid">
+
+
+            <div class="format-card">
+
+                <strong>
+                    PNG
+                </strong>
+
+                <span>
+                    LSB sobre canales de imagen
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    JPEG
+                </strong>
+
+                <span>
+                    Coeficientes DCT
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    WAV
+                </strong>
+
+                <span>
+                    PCM / LSB de muestras
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    MKV
+                </strong>
+
+                <span>
+                    FFV1 / Luma-LSB
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    MP4
+                </strong>
+
+                <span>
+                    H.264 Lossless QP=0
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SEGURIDAD
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Protección
+            </span>
+
+
+            <h2>
+                Cifrado e integridad
+            </h2>
+
+
+            <p>
+
+                El payload puede protegerse mediante
+                cifrado y verificar su integridad
+                después de la extracción.
+
+            </p>
+
+        </div>
+
+
+        <div class="security-grid">
+
+
+            <div class="security-card">
+
+                <h3>
+                    AES-GCM
+                </h3>
+
+                <p>
+
+                    Protección opcional del archivo
+                    oculto mediante contraseña y
+                    cifrado autenticado.
+
+                </p>
+
+            </div>
+
+
+            <div class="security-card">
+
+                <h3>
+                    SHA-256
+                </h3>
+
+                <p>
+
+                    Comprobación de que el archivo
+                    recuperado coincide exactamente
+                    con el archivo original.
+
+                </p>
+
+            </div>
+
+
+            <div class="security-card">
+
+                <h3>
+                    Payload v2
+                </h3>
+
+                <p>
+
+                    Formato propio de RSC StegLab
+                    con soporte para cifrado,
+                    metadatos e integridad.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CLI
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                CLI + GUI
+            </span>
+
+
+            <h2>
+                Utilícelo como usted prefiera
+            </h2>
+
+
+            <p>
+
+                Puede trabajar mediante la interfaz
+                gráfica o utilizar directamente
+                los comandos de RSC StegLab desde
+                la terminal.
+
+            </p>
+
+        </div>
+
+
+        <div class="terminal-box">
+
+
+            <div class="terminal-header">
+
+                kali@rsc:~
+
+            </div>
+
+
+            <div class="terminal">
+
+
+                <div>
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-steglab start
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-steglab analyze imagen.png
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-steglab inspect carrier.jpg
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-steglab hide carrier.png secreto.pdf --password
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        rsc-steglab extract carrier.png
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INSTALACIÓN
+========================================================= -->
+
+<section
+    id="instalacion"
+    class="download-section"
+>
+
+    <div class="container">
+
+
+        <div class="download-box">
+
+
+            <div class="eyebrow">
+
+                Kali Linux
+
+            </div>
+
+
+            <h2>
+
+                Instalar RSC StegLab
+
+            </h2>
+
+
+            <p>
+
+                RSC StegLab será distribuido mediante
+                un paquete Debian para facilitar su
+                instalación en Kali Linux.
+
+            </p>
+
+
+            <!--
+                ESTE BOTÓN TODAVÍA NO DESCARGA.
+
+                Cuando tengamos el .deb publicado,
+                sustituiremos # por el enlace real.
+            -->
+
+            <a
+                href="#"
+                class="button button-primary"
+            >
+
+                Descargar RSC StegLab 0.6.0
+
+            </a>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt install rsc-steglab
+
+            </div>
+
+
+            <div class="download-note">
+
+                La instalación mediante APT se habilitará
+                cuando publiquemos el repositorio oficial RSC.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EDUCACIÓN
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="education-box">
+
+
+            <div class="eyebrow">
+
+                RSC Education
+
+            </div>
+
+
+            <h2>
+
+                Creado para aprender y experimentar
+
+            </h2>
+
+
+            <p>
+
+                RSC StegLab forma parte de la familia
+                de herramientas educativas RSC.
+                Su propósito es facilitar el estudio
+                práctico de técnicas de esteganografía,
+                procesamiento multimedia, cifrado e
+                integridad de información dentro de
+                entornos controlados de laboratorio.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        RSC StegLab
+
+    </div>
+
+
+    <p>
+
+        Multimedia Steganography Toolkit
+
+    </p>
+
+
+    <p class="developer">
+
+        Desarrollado por Eddy Infante M
+
+    </p>
+
+
+    <p>
+
+        © 2026 RSC
+        • Routing
+        • Switching
+        • Cyber
+
+    </p>
+
+
+    <p>
+
+        Herramienta desarrollada con fines
+        educativos y de laboratorio.
+
+    </p>
+
+
+</footer>
+
+
+</body>
+
+</html>

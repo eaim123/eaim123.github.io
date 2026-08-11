@@ -1,180 +1,1254 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Security Breach Simulation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        margin: 0;
-        background: black;
-        color: #00ff9f;
-        font-family: "Courier New", monospace;
-        overflow: hidden;
-    }
+    <title>RSC | Routing • Switching • Cyber</title>
 
-    .center {
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+    <meta
+        name="description"
+        content="RSC - Plataforma educativa de capacitación tecnológica en Routing, Switching, Cyber y herramientas especializadas."
+    >
 
-    h1 {
-        color: red;
-        font-size: 2.5em;
-    }
+    <style>
+        :root {
+            --bg: #02060b;
+            --bg-secondary: #06101a;
+            --panel: #081522;
+            --panel-light: #0b1c2b;
 
-    .terminal {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 40%;
-        background: black;
-        border-top: 1px solid #00ff9f;
-        padding: 10px;
-        overflow-y: auto;
-        font-size: 0.9em;
-    }
+            --blue: #009cff;
+            --blue-light: #38c8ff;
+            --red: #e51d2a;
+            --red-light: #ff3947;
 
-    .file {
-        position: absolute;
-        color: #00ff9f;
-        font-size: 12px;
-        animation: move 5s linear infinite;
-    }
+            --silver: #d9e1e7;
+            --white: #f5f8fa;
+            --muted: #91a6b7;
 
-    @keyframes move {
-        from {
-            transform: translateX(-100px);
+            --border-blue: rgba(0, 156, 255, 0.25);
+            --border-red: rgba(229, 29, 42, 0.25);
+
+            --max-width: 1200px;
         }
-        to {
-            transform: translateX(110vw);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
 
-    .encrypt {
-        color: red;
-        font-weight: bold;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.85);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+        body {
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
 
-    .ransom {
-        color: red;
-        font-size: 1.5em;
-    }
-</style>
+            background:
+                radial-gradient(
+                    circle at 20% 10%,
+                    rgba(0, 156, 255, 0.10),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 25%,
+                    rgba(229, 29, 42, 0.07),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    180deg,
+                    #010409 0%,
+                    #06101a 50%,
+                    #02060b 100%
+                );
+
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(2, 6, 11, 0.92);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border-blue);
+        }
+
+        .navbar {
+            max-width: var(--max-width);
+            margin: auto;
+
+            min-height: 72px;
+            padding: 0 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .brand-r {
+            color: var(--blue);
+        }
+
+        .brand-s {
+            color: var(--silver);
+        }
+
+        .brand-c {
+            color: var(--red);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+            color: #c9d5df;
+            font-size: 0.92rem;
+        }
+
+        .nav-links a {
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue-light);
+        }
+
+        /* ==================================================
+           HERO
+        ================================================== */
+
+        .hero {
+            min-height: 760px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 90px 24px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            width: 650px;
+            height: 650px;
+
+            left: -200px;
+            top: 80px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0, 156, 255, 0.10),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+            width: 550px;
+            height: 550px;
+
+            right: -180px;
+            top: 100px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(229, 29, 42, 0.08),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 70px;
+            align-items: center;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo img {
+            width: 100%;
+            max-width: 470px;
+            height: auto;
+
+            filter:
+                drop-shadow(
+                    0 0 25px
+                    rgba(0, 156, 255, 0.16)
+                );
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero-small {
+            color: var(--blue-light);
+
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 4px;
+
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.03;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 .blue {
+            color: var(--blue);
+        }
+
+        .hero h1 .red {
+            color: var(--red-light);
+        }
+
+        .hero-description {
+            max-width: 620px;
+
+            color: #b9c8d4;
+            font-size: 1.08rem;
+
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 190px;
+
+            padding: 13px 24px;
+
+            border-radius: 7px;
+
+            font-weight: 700;
+            font-size: 0.92rem;
+
+            transition: 0.25s;
+        }
+
+        .button-primary {
+            color: #00101a;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-light)
+                );
+
+            border: 1px solid var(--blue);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 25px
+                rgba(0, 156, 255, 0.30);
+        }
+
+        .button-secondary {
+            color: var(--white);
+
+            background:
+                rgba(255, 255, 255, 0.02);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.22);
+        }
+
+        .button-secondary:hover {
+            border-color: var(--blue);
+
+            background:
+                rgba(0, 156, 255, 0.08);
+        }
+
+        /* ==================================================
+           GENERAL
+        ================================================== */
+
+        section {
+            padding: 90px 24px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: auto;
+        }
+
+        .section-heading {
+            max-width: 760px;
+
+            margin:
+                0 auto
+                55px;
+
+            text-align: center;
+        }
+
+        .section-label {
+            display: block;
+
+            color: var(--blue);
+
+            font-size: 0.78rem;
+            font-weight: 700;
+
+            letter-spacing: 3px;
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-size:
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        /* ==================================================
+           CAPACITACIÓN
+        ================================================== */
+
+        .training {
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 156, 255, 0.025),
+                    transparent
+                );
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .training-card {
+            position: relative;
+
+            min-height: 250px;
+
+            padding: 32px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(9, 24, 38, 0.96),
+                    rgba(4, 11, 18, 0.96)
+                );
+
+            border:
+                1px solid
+                var(--border-blue);
+
+            transition: 0.3s;
+        }
+
+        .training-card:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(0, 156, 255, 0.55);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.30);
+        }
+
+        .training-card.cyber {
+            border-color:
+                var(--border-red);
+        }
+
+        .training-card.cyber:hover {
+            border-color:
+                rgba(229, 29, 42, 0.60);
+        }
+
+        .training-icon {
+            font-size: 2.2rem;
+
+            margin-bottom: 18px;
+        }
+
+        .training-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+
+        .training-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==================================================
+           APPLICATIONS
+        ================================================== */
+
+        .applications {
+            background:
+                rgba(0, 0, 0, 0.18);
+        }
+
+        .app-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(290px, 1fr)
+                );
+
+            gap: 24px;
+        }
+
+        .app-card {
+            position: relative;
+
+            min-height: 330px;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(10, 27, 42, 0.98),
+                    rgba(3, 10, 17, 0.98)
+                );
+
+            border:
+                1px solid
+                var(--border-blue);
+
+            overflow: hidden;
+
+            transition: 0.3s;
+        }
+
+        .app-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--silver),
+                    var(--red)
+                );
+        }
+
+        .app-card:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(0, 156, 255, 0.55);
+
+            box-shadow:
+                0 18px 45px
+                rgba(0, 0, 0, 0.35);
+        }
+
+        .app-status {
+            display: inline-block;
+
+            margin-bottom: 20px;
+            padding: 5px 11px;
+
+            border-radius: 20px;
+
+            color: #72ddff;
+
+            background:
+                rgba(0, 156, 255, 0.10);
+
+            border:
+                1px solid
+                rgba(0, 156, 255, 0.25);
+
+            font-size: 0.70rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .app-status.soon {
+            color: #ffd36a;
+
+            background:
+                rgba(255, 190, 0, 0.08);
+
+            border-color:
+                rgba(255, 190, 0, 0.22);
+        }
+
+        .app-card h3 {
+            font-size: 1.55rem;
+            margin-bottom: 12px;
+        }
+
+        .app-card p {
+            color: var(--muted);
+        }
+
+        .app-tech {
+            margin: 22px 0;
+
+            color: #c1d0db;
+            font-size: 0.85rem;
+        }
+
+        .app-link {
+            display: inline-block;
+
+            color: var(--blue-light);
+            font-weight: 700;
+
+            transition: 0.25s;
+        }
+
+        .app-link:hover {
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .coming {
+            opacity: 0.65;
+        }
+
+        /* ==================================================
+           ABOUT
+        ================================================== */
+
+        .about-box {
+            max-width: 900px;
+
+            margin: auto;
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 18px;
+
+            border:
+                1px solid
+                var(--border-blue);
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(0, 156, 255, 0.08),
+                    transparent 55%
+                ),
+                var(--panel);
+        }
+
+        .about-box h2 {
+            font-size: 2.1rem;
+            margin-bottom: 18px;
+        }
+
+        .about-box p {
+            max-width: 720px;
+            margin: auto;
+
+            color: #afc1cf;
+        }
+
+        /* ==================================================
+           FOOTER
+        ================================================== */
+
+        footer {
+            padding: 48px 24px;
+
+            text-align: center;
+
+            border-top:
+                1px solid
+                var(--border-blue);
+
+            background: #010409;
+        }
+
+        .footer-rsc {
+            font-size: 1.35rem;
+            font-weight: 900;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 8px;
+        }
+
+        .footer-rsc .r {
+            color: var(--blue);
+        }
+
+        .footer-rsc .s {
+            color: var(--silver);
+        }
+
+        .footer-rsc .c {
+            color: var(--red);
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .developer {
+            margin: 12px 0 4px;
+
+            color: #dce7ef;
+
+            font-weight: 600;
+        }
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+
+                text-align: center;
+            }
+
+            .hero-logo img {
+                max-width: 360px;
+            }
+
+            .hero-content {
+                margin: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .training-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            section {
+                padding:
+                    65px
+                    18px;
+            }
+
+            .hero {
+                padding:
+                    60px
+                    18px;
+            }
+
+            .hero-logo img {
+                max-width: 300px;
+            }
+
+            .hero h1 {
+                font-size: 2.7rem;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .about-box {
+                padding:
+                    35px
+                    22px;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-<div class="center">
-    <h1>⚠ ACCESO NO AUTORIZADO ⚠</h1>
-    <p>Si esto hubiera sido un ataque real… ya estarías comprometido.</p>
-</div>
 
-<div class="terminal" id="terminal"></div>
+<!-- ======================================================
+     HEADER
+====================================================== -->
 
-<div class="overlay" id="overlay">
-    <div class="ransom">
-        <h2>TUS ARCHIVOS HAN SIDO ENCRIPTADOS</h2>
-        <p>Todos tus datos han sido comprometidos.</p>
-        <p>Para recuperarlos, necesitas una clave privada.</p>
-        <p>Tiempo restante: <span id="timer">60</span> segundos</p>
+<header>
+
+    <nav class="navbar">
+
+        <a href="#" class="brand">
+
+            <span class="brand-r">R</span>
+            <span class="brand-s">S</span>
+            <span class="brand-c">C</span>
+
+            <span>Education</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#inicio">
+                Inicio
+            </a>
+
+            <a href="#capacitacion">
+                Capacitación
+            </a>
+
+            <a href="#aplicaciones">
+                Aplicaciones
+            </a>
+
+            <a href="#nosotros">
+                Nosotros
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main>
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section
+    class="hero"
+    id="inicio"
+>
+
+    <div class="hero-container">
+
+
+        <div class="hero-logo">
+
+            <img
+                src="assets/rsc-logo.png"
+                alt="RSC - Routing Switching Cyber"
+            >
+
+        </div>
+
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                Educación • Tecnología • Laboratorios
+            </div>
+
+
+            <h1>
+                Aprenda.<br>
+
+                <span class="blue">
+                    Practique.
+                </span>
+
+                <span class="red">
+                    Construya.
+                </span>
+            </h1>
+
+
+            <p class="hero-description">
+
+                Plataforma educativa orientada a la
+                capacitación práctica en redes,
+                switching, ciberseguridad y tecnologías
+                de información, acompañada por
+                herramientas desarrolladas dentro de
+                la familia RSC.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#capacitacion"
+                    class="button button-primary"
+                >
+                    Ver capacitación
+                </a>
+
+
+                <a
+                    href="#aplicaciones"
+                    class="button button-secondary"
+                >
+                    Aplicaciones RSC
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
-</div>
 
-<script>
-    const terminal = document.getElementById("terminal");
-    const overlay = document.getElementById("overlay");
-    const timer = document.getElementById("timer");
+</section>
 
-    const messages = [
-        "Iniciando conexión remota...",
-        "Bypass de firewall... OK",
-        "Escaneando red interna...",
-        "Detectando vulnerabilidades...",
-        "Acceso a archivos...",
-        "Extrayendo datos sensibles...",
-        "Iniciando proceso de encriptación..."
-    ];
 
-    let i = 0;
 
-    function typeLine() {
-        if (i < messages.length) {
-            let line = document.createElement("div");
-            line.textContent = "> " + messages[i];
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-            i++;
-            setTimeout(typeLine, 1000);
-        } else {
-            startEncryption();
-        }
-    }
+<!-- ======================================================
+     CAPACITACIÓN
+====================================================== -->
 
-    function startEncryption() {
-        let count = 0;
+<section
+    class="training"
+    id="capacitacion"
+>
 
-        let encryptInterval = setInterval(() => {
-            let line = document.createElement("div");
-            line.innerHTML = "> <span class='encrypt'>ENCRIPTANDO:</span> archivo_" + count + ".dat";
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-            count++;
+    <div class="container">
 
-            createFile();
 
-            if (count > 20) {
-                clearInterval(encryptInterval);
-                showRansom();
-            }
-        }, 200);
-    }
+        <div class="section-heading">
 
-    function createFile() {
-        let file = document.createElement("div");
-        file.className = "file";
-        file.style.top = Math.random() * 100 + "vh";
-        file.textContent = "archivo.dat";
-        document.body.appendChild(file);
+            <span class="section-label">
+                Formación tecnológica
+            </span>
 
-        setTimeout(() => {
-            file.remove();
-        }, 5000);
-    }
+            <h2>
+                Aprender haciendo
+            </h2>
 
-    function showRansom() {
-        overlay.style.display = "flex";
+            <p>
+                Capacitación orientada a comprender
+                conceptos tecnológicos mediante
+                práctica, experimentación y
+                laboratorios.
+            </p>
 
-        let timeLeft = 60;
+        </div>
 
-        let countdown = setInterval(() => {
-            timeLeft--;
-            timer.textContent = timeLeft;
 
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                timer.textContent = "PERDIDO";
-            }
-        }, 1000);
-    }
 
-    typeLine();
-</script>
+        <div class="training-grid">
+
+
+            <article class="training-card">
+
+                <div class="training-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Routing
+                </h3>
+
+                <p>
+                    Fundamentos y prácticas de
+                    enrutamiento, direccionamiento IP,
+                    protocolos y diseño de redes.
+                </p>
+
+            </article>
+
+
+
+            <article class="training-card">
+
+                <div class="training-icon">
+                    🔀
+                </div>
+
+                <h3>
+                    Switching
+                </h3>
+
+                <p>
+                    Conmutación, VLAN, trunking,
+                    redundancia y tecnologías
+                    utilizadas en redes
+                    empresariales.
+                </p>
+
+            </article>
+
+
+
+            <article class="training-card cyber">
+
+                <div class="training-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Cyber
+                </h3>
+
+                <p>
+                    Ciberseguridad, análisis,
+                    laboratorios, protección de
+                    información y herramientas
+                    orientadas al aprendizaje
+                    práctico.
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     APLICACIONES RSC
+====================================================== -->
+
+<section
+    class="applications"
+    id="aplicaciones"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                RSC Apps
+            </span>
+
+            <h2>
+                Familia de aplicaciones RSC
+            </h2>
+
+            <p>
+                Herramientas desarrolladas para
+                complementar la capacitación,
+                experimentación y construcción de
+                laboratorios tecnológicos.
+            </p>
+
+        </div>
+
+
+
+        <div class="app-grid">
+
+
+            <!-- ==========================================
+                 RSC STEGLAB
+            =========================================== -->
+
+            <article class="app-card">
+
+                <span class="app-status">
+                    Disponible
+                </span>
+
+
+                <h3>
+                    RSC StegLab
+                </h3>
+
+
+                <p>
+                    Laboratorio multimedia de
+                    esteganografía para estudiar
+                    técnicas de ocultamiento,
+                    extracción, cifrado e integridad
+                    de información.
+                </p>
+
+
+                <div class="app-tech">
+
+                    PNG • JPEG/DCT • WAV •
+                    MKV/FFV1 • MP4/H.264
+
+                </div>
+
+
+                <a
+                    href="steglab/"
+                    class="app-link"
+                >
+                    Conocer RSC StegLab →
+                </a>
+
+            </article>
+
+
+
+            <!-- ==========================================
+                 PRÓXIMA APLICACIÓN
+            =========================================== -->
+
+            <article class="app-card coming">
+
+                <span class="app-status soon">
+                    Próximamente
+                </span>
+
+
+                <h3>
+                    Próxima aplicación RSC
+                </h3>
+
+
+                <p>
+                    Nuevas herramientas educativas
+                    serán incorporadas progresivamente
+                    a la familia RSC.
+                </p>
+
+
+                <div class="app-tech">
+                    Routing • Switching • Cyber
+                </div>
+
+            </article>
+
+
+
+            <!-- ==========================================
+                 RSC LABS
+            =========================================== -->
+
+            <article class="app-card coming">
+
+                <span class="app-status soon">
+                    En desarrollo
+                </span>
+
+
+                <h3>
+                    RSC Labs
+                </h3>
+
+
+                <p>
+                    Espacio destinado a futuras
+                    herramientas, simuladores y
+                    laboratorios interactivos de
+                    capacitación.
+                </p>
+
+
+                <div class="app-tech">
+                    Educación • Práctica • Tecnología
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     NOSOTROS
+====================================================== -->
+
+<section id="nosotros">
+
+    <div class="container">
+
+
+        <div class="about-box">
+
+            <span class="section-label">
+                Nuestra misión
+            </span>
+
+
+            <h2>
+                Tecnología que también enseña
+            </h2>
+
+
+            <p>
+
+                RSC nace con un enfoque educativo:
+                transformar conceptos técnicos en
+                experiencias prácticas.
+
+                Cada capacitación, laboratorio y
+                aplicación busca facilitar el
+                aprendizaje, la experimentación y el
+                desarrollo de nuevas habilidades
+                tecnológicas.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+
+    <div class="footer-rsc">
+
+        <span class="r">R</span>
+        <span class="s">S</span>
+        <span class="c">C</span>
+
+    </div>
+
+
+    <p>
+        Routing • Switching • Cyber • Y mucho más
+    </p>
+
+
+    <p class="developer">
+        Desarrollado por Eddy Infante M
+    </p>
+
+
+    <p>
+        © 2026 RSC. Plataforma educativa y tecnológica.
+    </p>
+
+
+</footer>
+
 
 </body>
 </html>
+```

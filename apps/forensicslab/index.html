@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="RSC ForensicsLab - Digital Forensics Laboratory para Kali Linux."
+    >
+
+    <title>
+        RSC ForensicsLab | Digital Forensics Laboratory
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+
+            --bg:
+                #03080d;
+
+            --panel:
+                #07111b;
+
+            --panel-light:
+                #0b1c2c;
+
+            --blue:
+                #00a8ff;
+
+            --blue-light:
+                #58d8ff;
+
+            --red:
+                #ff304f;
+
+            --green:
+                #4cff91;
+
+            --text:
+                #edf6fc;
+
+            --muted:
+                #8fa7b8;
+
+            --border:
+                rgba(255, 255, 255, 0.09);
+
+            --max-width:
+                1180px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+
+            margin:
+                0;
+
+            padding:
+                0;
+
+            box-sizing:
+                border-box;
+        }
+
+
+        html {
+
+            scroll-behavior:
+                smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            line-height:
+                1.6;
+        }
+
+
+        a {
+
+            text-decoration:
+                none;
+
+            color:
+                inherit;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        header {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                1000;
+
+            background:
+                rgba(3, 8, 13, 0.94);
+
+            backdrop-filter:
+                blur(14px);
+
+            border-bottom:
+                1px solid
+                var(--border);
+        }
+
+
+        nav {
+
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+
+            min-height:
+                70px;
+
+            padding:
+                0 24px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                25px;
+        }
+
+
+        .brand {
+
+            font-size:
+                1.25rem;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .brand .blue {
+
+            color:
+                var(--blue);
+        }
+
+
+        .brand .red {
+
+            color:
+                var(--red);
+        }
+
+
+        .nav-links {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                25px;
+
+            font-size:
+                0.90rem;
+        }
+
+
+        .nav-links a {
+
+            color:
+                #c6d5df;
+
+            transition:
+                0.25s;
+        }
+
+
+        .nav-links a:hover {
+
+            color:
+                var(--blue-light);
+        }
+
+
+        .nav-links .back {
+
+            padding:
+                8px 14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                7px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
+
+            padding:
+                80px 24px;
+
+            background:
+
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(0, 168, 255, 0.13),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 75% 60%,
+                    rgba(255, 48, 79, 0.05),
+                    transparent 35%
+                );
+        }
+
+
+        .hero-container {
+
+            width:
+                100%;
+
+            max-width:
+                1000px;
+
+            margin:
+                auto;
+        }
+
+
+        .forensics-logo {
+
+            display:
+                block;
+
+            width:
+                min(430px, 88vw);
+
+            height:
+                auto;
+
+            margin:
+                0 auto 25px;
+
+            filter:
+
+                drop-shadow(
+                    0 0 22px
+                    rgba(0, 168, 255, 0.18)
+                );
+        }
+
+
+        .badge {
+
+            display:
+                inline-block;
+
+            margin-bottom:
+                18px;
+
+            padding:
+                6px 13px;
+
+            border-radius:
+                999px;
+
+            border:
+                1px solid
+                rgba(76, 255, 145, 0.30);
+
+            background:
+                rgba(76, 255, 145, 0.07);
+
+            color:
+                var(--green);
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .eyebrow {
+
+            color:
+                var(--blue);
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                3px;
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        h1 {
+
+            font-size:
+
+                clamp(
+                    2.8rem,
+                    7vw,
+                    5.5rem
+                );
+
+            line-height:
+                1.05;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        h1 .rsc {
+
+            color:
+                var(--blue);
+        }
+
+
+        h1 .lab {
+
+            color:
+                var(--red);
+        }
+
+
+        .hero-description {
+
+            max-width:
+                820px;
+
+            margin:
+                0 auto 20px;
+
+            color:
+                #b9c9d6;
+
+            font-size:
+                1.10rem;
+        }
+
+
+        .version {
+
+            color:
+                var(--muted);
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .hero-buttons {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                215px;
+
+            padding:
+                13px 24px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                700;
+
+            transition:
+                0.25s;
+        }
+
+
+        .button-primary {
+
+            background:
+                var(--blue);
+
+            color:
+                #00101b;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-primary:hover {
+
+            background:
+                var(--blue-light);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 0 25px
+                rgba(0, 168, 255, 0.30);
+        }
+
+
+        .button-secondary {
+
+            color:
+                var(--text);
+
+            background:
+                transparent;
+
+            border:
+                1px solid
+                var(--blue);
+        }
+
+
+        .button-secondary:hover {
+
+            background:
+                rgba(0, 168, 255, 0.08);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        section {
+
+            padding:
+                90px 24px;
+        }
+
+
+        .container {
+
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+        }
+
+
+        .section-heading {
+
+            text-align:
+                center;
+
+            max-width:
+                800px;
+
+            margin:
+                0 auto 50px;
+        }
+
+
+        .section-heading .small {
+
+            color:
+                var(--blue);
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                3px;
+
+            text-transform:
+                uppercase;
+
+            font-size:
+                0.78rem;
+        }
+
+
+        .section-heading h2 {
+
+            margin-top:
+                10px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+        }
+
+
+        .section-heading p {
+
+            color:
+                var(--muted);
+        }
+
+
+        /* =========================================================
+           INTERFAZ
+        ========================================================= */
+
+        .interface-section {
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 168, 255, 0.035),
+                    transparent
+                );
+        }
+
+
+        .interface-frame {
+
+            max-width:
+                1080px;
+
+            margin:
+                auto;
+
+            padding:
+                2px;
+
+            border-radius:
+                18px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    rgba(88, 216, 255, 0.25),
+                    var(--red)
+                );
+
+            box-shadow:
+
+                0 30px 75px
+                rgba(0, 0, 0, 0.55),
+
+                0 0 35px
+                rgba(0, 168, 255, 0.10);
+        }
+
+
+        .interface-inner {
+
+            padding:
+                10px;
+
+            border-radius:
+                16px;
+
+            background:
+                #02070c;
+        }
+
+
+        .interface-inner img {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                auto;
+
+            border-radius:
+                10px;
+
+            border:
+
+                1px solid
+                rgba(255, 255, 255, 0.08);
+        }
+
+
+        .interface-caption {
+
+            text-align:
+                center;
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FEATURES
+        ========================================================= */
+
+        .feature-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap:
+                22px;
+        }
+
+
+        .feature-card {
+
+            padding:
+                30px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+            transition:
+                0.3s;
+        }
+
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(0, 168, 255, 0.55);
+
+            box-shadow:
+
+                0 18px 45px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        .feature-icon {
+
+            font-size:
+                2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .feature-card h3 {
+
+            margin-bottom:
+                10px;
+
+            font-size:
+                1.25rem;
+        }
+
+
+        .feature-card p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FORENSIC CAPABILITIES
+        ========================================================= */
+
+        .capability-section {
+
+            background:
+                rgba(0, 0, 0, 0.14);
+        }
+
+
+        .capability-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+
+                repeat(
+                    auto-fit,
+                    minmax(210px, 1fr)
+                );
+
+            gap:
+                18px;
+        }
+
+
+        .capability-card {
+
+            padding:
+                28px 20px;
+
+            text-align:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(11, 28, 44, 0.95),
+                    rgba(4, 11, 18, 0.95)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            transition:
+                0.25s;
+        }
+
+
+        .capability-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(0, 168, 255, 0.50);
+        }
+
+
+        .capability-card strong {
+
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                1.10rem;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .capability-card span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        /* =========================================================
+           TERMINAL
+        ========================================================= */
+
+        .terminal-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                14px;
+
+            background:
+                #010407;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.28);
+
+            box-shadow:
+
+                0 18px 50px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        .terminal-header {
+
+            padding:
+                13px 18px;
+
+            background:
+                #0b1219;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.82rem;
+
+            border-bottom:
+
+                1px solid
+                rgba(255, 255, 255, 0.07);
+        }
+
+
+        .terminal {
+
+            padding:
+                27px;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #bdeaff;
+
+            line-height:
+                2;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .terminal-line {
+
+            white-space:
+                nowrap;
+        }
+
+
+        .prompt {
+
+            color:
+                var(--green);
+
+            margin-right:
+                8px;
+        }
+
+
+        .command {
+
+            color:
+                #f4f8fc;
+        }
+
+
+        /* =========================================================
+           DOWNLOAD
+        ========================================================= */
+
+        .download-section {
+
+            background:
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .download-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                55px 30px;
+
+            text-align:
+                center;
+
+            border-radius:
+                18px;
+
+            border:
+
+                1px solid
+                rgba(0, 168, 255, 0.30);
+
+            background:
+
+                radial-gradient(
+                    circle at top,
+                    rgba(0, 168, 255, 0.11),
+                    transparent 60%
+                ),
+
+                var(--panel);
+        }
+
+
+        .download-box h2 {
+
+            font-size:
+                2.2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .download-box > p {
+
+            max-width:
+                670px;
+
+            margin:
+                0 auto 25px;
+
+            color:
+                var(--muted);
+        }
+
+
+        .download-buttons {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+
+            margin-bottom:
+                25px;
+        }
+
+
+        .download-info {
+
+            margin-top:
+                22px !important;
+
+            margin-bottom:
+                12px !important;
+
+            color:
+                #c6d5df !important;
+
+            font-size:
+                0.92rem;
+        }
+
+
+        .checksum {
+
+            max-width:
+                760px !important;
+
+            margin:
+                0 auto 28px !important;
+
+            padding:
+                15px;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid
+                rgba(0, 168, 255, 0.22);
+
+            color:
+                var(--muted) !important;
+
+            font-size:
+                0.82rem !important;
+
+            overflow-wrap:
+                anywhere;
+        }
+
+
+        .checksum code {
+
+            color:
+                var(--green);
+
+            font-family:
+                "Courier New",
+                monospace;
+        }
+
+
+        .install-title {
+
+            margin-top:
+                30px;
+
+            margin-bottom:
+                12px;
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                700;
+        }
+
+
+        .install-command {
+
+            max-width:
+                650px;
+
+            margin:
+                10px auto 0;
+
+            padding:
+                15px 20px;
+
+            text-align:
+                left;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid
+                rgba(0, 168, 255, 0.22);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #dff6ff;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .install-command span {
+
+            color:
+                var(--green);
+        }
+
+
+        .download-note {
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.85rem;
+        }
+
+
+        /* =========================================================
+           EDUCATIONAL NOTICE
+        ========================================================= */
+
+        .education-box {
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                40px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--panel);
+        }
+
+
+        .education-box h2 {
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .education-box p {
+
+            color:
+                var(--muted);
+
+            max-width:
+                720px;
+
+            margin:
+                auto;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            padding:
+                48px 24px;
+
+            text-align:
+                center;
+
+            background:
+                #02060a;
+
+            border-top:
+                1px solid
+                var(--border);
+        }
+
+
+        .footer-brand {
+
+            font-size:
+                1.3rem;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                7px;
+        }
+
+
+        footer p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        .developer {
+
+            margin-top:
+                10px;
+
+            color:
+                #d9e6ef;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .forensics-logo {
+
+                width:
+                    min(350px, 82vw);
+            }
+        }
+
+
+        @media (max-width: 760px) {
+
+            .nav-links a:not(.back) {
+
+                display:
+                    none;
+            }
+
+
+            .hero {
+
+                min-height:
+                    auto;
+
+                padding-top:
+                    60px;
+            }
+
+
+            section {
+
+                padding:
+                    65px 18px;
+            }
+
+
+            .education-box {
+
+                padding:
+                    30px 22px;
+            }
+
+
+            .terminal {
+
+                font-size:
+                    0.82rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+    <nav>
+
+        <a
+            href="../../"
+            class="brand"
+        >
+
+            <span class="blue">
+                RSC
+            </span>
+
+            Forensics<span class="red">Lab</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#interfaz">
+                Interfaz
+            </a>
+
+            <a href="#caracteristicas">
+                Características
+            </a>
+
+            <a href="#capacidades">
+                Capacidades
+            </a>
+
+            <a href="#instalacion">
+                Instalación
+            </a>
+
+            <a
+                href="../../"
+                class="back"
+            >
+                ← Volver a RSC
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+        <img
+            src="../../assets/images/rsc-forensicslab.png"
+            alt="RSC ForensicsLab"
+            class="forensics-logo"
+        >
+
+
+        <div>
+
+            <span class="badge">
+                Disponible
+            </span>
+
+        </div>
+
+
+        <div class="eyebrow">
+
+            Digital Forensics Laboratory
+
+        </div>
+
+
+        <h1>
+
+            <span class="rsc">
+                RSC
+            </span>
+
+            Forensics<span class="lab">Lab</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Plataforma de análisis forense digital para Kali Linux
+            orientada a adquisición física, verificación de integridad,
+            análisis de sistemas de archivos, recuperación de archivos,
+            file carving y generación de reportes forenses.
+
+        </p>
+
+
+        <div class="version">
+
+            Versión 0.1.0
+            • Kali Linux
+            • Web UI + CLI
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#instalacion"
+                class="button button-primary"
+            >
+                Descargar para Kali
+            </a>
+
+
+            <a
+                href="#interfaz"
+                class="button button-secondary"
+            >
+                Ver la aplicación
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERFAZ
+========================================================= -->
+
+<section
+    id="interfaz"
+    class="interface-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Interfaz web
+            </span>
+
+
+            <h2>
+                RSC ForensicsLab en acción
+            </h2>
+
+
+            <p>
+
+                Controle desde una interfaz local la adquisición,
+                importación y análisis de evidencias digitales,
+                explore archivos activos y eliminados, recupere
+                elementos y genere reportes forenses.
+
+            </p>
+
+        </div>
+
+
+        <div class="interface-frame">
+
+            <div class="interface-inner">
+
+                <img
+                    src="../../assets/images/interfaz-forensicslab.png"
+                    alt="Interfaz de RSC ForensicsLab"
+                >
+
+            </div>
+
+        </div>
+
+
+        <p class="interface-caption">
+
+            Interfaz de RSC ForensicsLab 0.1.0
+            ejecutándose en Kali Linux.
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CARACTERÍSTICAS
+========================================================= -->
+
+<section id="caracteristicas">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Funcionalidades
+            </span>
+
+
+            <h2>
+                Análisis forense desde una sola plataforma
+            </h2>
+
+
+            <p>
+
+                RSC ForensicsLab integra adquisición,
+                análisis, recuperación y documentación
+                dentro de un mismo entorno de trabajo.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    💽
+                </div>
+
+                <h3>
+                    Adquisición RAW/DD
+                </h3>
+
+                <p>
+
+                    Cree imágenes físicas bit a bit de
+                    dispositivos removibles con controles
+                    de seguridad para proteger el disco
+                    del sistema.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Integridad SHA-256
+                </h3>
+
+                <p>
+
+                    Calcule hashes SHA-256 y compare
+                    evidencias importadas contra valores
+                    de referencia proporcionados por
+                    el examinador.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Análisis de evidencia
+                </h3>
+
+                <p>
+
+                    Detecte particiones, sistemas de archivos,
+                    archivos activos, elementos eliminados
+                    y metadatos relevantes.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ♻️
+                </div>
+
+                <h3>
+                    Recuperación
+                </h3>
+
+                <p>
+
+                    Recupere archivos eliminados desde
+                    la imagen forense preservando tamaño,
+                    origen y hash SHA-256.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🧩
+                </div>
+
+                <h3>
+                    File carving
+                </h3>
+
+                <p>
+
+                    Detecte archivos directamente mediante
+                    firmas y estructura interna incluso cuando
+                    no exista una entrada válida en el sistema
+                    de archivos.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Reportes forenses
+                </h3>
+
+                <p>
+
+                    Genere reportes con identificación del caso,
+                    integridad, estructura, archivos activos,
+                    eliminados, recuperados, carving y hallazgos.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CAPACIDADES
+========================================================= -->
+
+<section
+    id="capacidades"
+    class="capability-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Motor forense
+            </span>
+
+
+            <h2>
+                Capacidades de análisis
+            </h2>
+
+
+            <p>
+
+                La versión 0.1.0 integra funciones orientadas
+                al trabajo con imágenes forenses RAW, DD e IMG.
+
+            </p>
+
+        </div>
+
+
+        <div class="capability-grid">
+
+
+            <div class="capability-card">
+
+                <strong>
+                    RAW / DD
+                </strong>
+
+                <span>
+                    Adquisición física bit a bit
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    DD / IMG / RAW
+                </strong>
+
+                <span>
+                    Importación de evidencia existente
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    SHA-256
+                </strong>
+
+                <span>
+                    Integridad y comparación externa
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    FAT32
+                </strong>
+
+                <span>
+                    Análisis de sistema de archivos
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    Eliminados
+                </strong>
+
+                <span>
+                    Detección y recuperación
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    Carving
+                </strong>
+
+                <span>
+                    Recuperación por firmas
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    Tipo real
+                </strong>
+
+                <span>
+                    Identificación por contenido
+                </span>
+
+            </div>
+
+
+            <div class="capability-card">
+
+                <strong>
+                    Reportes
+                </strong>
+
+                <span>
+                    Documentación del análisis
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CLI
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                CLI + Web UI
+            </span>
+
+
+            <h2>
+                Inicie y controle el laboratorio desde Kali
+            </h2>
+
+
+            <p>
+
+                RSC ForensicsLab se instala como aplicación
+                del sistema y puede iniciarse desde el menú
+                de aplicaciones o desde la terminal.
+
+            </p>
+
+        </div>
+
+
+        <div class="terminal-box">
+
+
+            <div class="terminal-header">
+
+                kali@rsc:~
+
+            </div>
+
+
+            <div class="terminal">
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        forensicslab start
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        forensicslab status
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        forensicslab restart
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        forensicslab stop
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INSTALACIÓN
+========================================================= -->
+
+<section
+    id="instalacion"
+    class="download-section"
+>
+
+    <div class="container">
+
+
+        <div class="download-box">
+
+
+            <div class="eyebrow">
+
+                Kali Linux
+
+            </div>
+
+
+            <h2>
+                Instalar RSC ForensicsLab
+            </h2>
+
+
+            <p>
+
+                Descargue el paquete Debian oficial de
+                RSC ForensicsLab 0.1.0 e instálelo
+                directamente en Kali Linux.
+
+            </p>
+
+
+            <div class="download-buttons">
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-forensicslab/releases/download/v0.1.0/rsc-forensicslab_0.1.0_amd64.deb"
+                    class="button button-primary"
+                >
+                    Descargar RSC ForensicsLab 0.1.0
+                </a>
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-forensicslab"
+                    class="button button-secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ver código en GitHub
+                </a>
+
+
+            </div>
+
+
+            <p class="download-info">
+
+                Kali Linux • AMD64 • Versión 0.1.0
+
+            </p>
+
+
+            <p class="checksum">
+
+                SHA-256:
+                <code>
+                    PENDIENTE-DE-CALCULAR
+                </code>
+
+            </p>
+
+
+            <div class="install-title">
+
+                1. Actualizar los repositorios
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt update
+
+            </div>
+
+
+            <div class="install-title">
+
+                2. Instalar el paquete descargado
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt install ./rsc-forensicslab_0.1.0_amd64.deb
+
+            </div>
+
+
+            <div class="install-title">
+
+                3. Iniciar RSC ForensicsLab
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                forensicslab start
+
+            </div>
+
+
+            <div class="download-note">
+
+                Después de la instalación también puede
+                iniciar RSC ForensicsLab desde el menú de
+                aplicaciones de Kali Linux.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EDUCACIÓN
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="education-box">
+
+
+            <div class="eyebrow">
+
+                RSC Education
+
+            </div>
+
+
+            <h2>
+
+                Creado para aprender y experimentar
+
+            </h2>
+
+
+            <p>
+
+                RSC ForensicsLab forma parte de la familia
+                de herramientas educativas RSC.
+                Su propósito es facilitar el estudio práctico
+                de adquisición, preservación, análisis,
+                recuperación y documentación de evidencia
+                digital dentro de entornos controlados
+                de laboratorio y formación en ciberseguridad.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        RSC ForensicsLab
+
+    </div>
+
+
+    <p>
+
+        Digital Forensics Laboratory
+
+    </p>
+
+
+    <p class="developer">
+
+        Desarrollado por Eddy Infante M
+
+    </p>
+
+
+    <p>
+
+        © 2026 RSC
+        • Routing
+        • Switching
+        • Cyber
+
+    </p>
+
+
+    <p>
+
+        Herramienta desarrollada con fines
+        educativos y de laboratorio.
+
+    </p>
+
+
+</footer>
+
+
+</body>
+
+</html>

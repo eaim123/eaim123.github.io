@@ -1,1 +1,2211 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="RSC CompressLab - Laboratorio de compresión y archivos para Kali Linux."
+    >
+
+    <title>
+        RSC CompressLab | Compression & Archive Laboratory
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+
+            --bg:
+                #03080d;
+
+            --panel:
+                #07111b;
+
+            --panel-light:
+                #0b1c2c;
+
+            --blue:
+                #00a8ff;
+
+            --blue-light:
+                #58d8ff;
+
+            --red:
+                #ff304f;
+
+            --green:
+                #4cff91;
+
+            --text:
+                #edf6fc;
+
+            --muted:
+                #8fa7b8;
+
+            --border:
+                rgba(255, 255, 255, 0.09);
+
+            --max-width:
+                1180px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            line-height:
+                1.6;
+        }
+
+
+        a {
+            text-decoration:
+                none;
+
+            color:
+                inherit;
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        header {
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                1000;
+
+            background:
+                rgba(3, 8, 13, 0.94);
+
+            backdrop-filter:
+                blur(14px);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        nav {
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+
+            min-height:
+                70px;
+
+            padding:
+                0 24px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                25px;
+        }
+
+
+        .brand {
+            font-size:
+                1.25rem;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .brand .blue {
+            color:
+                var(--blue);
+        }
+
+
+        .brand .red {
+            color:
+                var(--red);
+        }
+
+
+        .nav-links {
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                25px;
+
+            font-size:
+                0.90rem;
+        }
+
+
+        .nav-links a {
+            color:
+                #c6d5df;
+
+            transition:
+                0.25s;
+        }
+
+
+        .nav-links a:hover {
+            color:
+                var(--blue-light);
+        }
+
+
+        .nav-links .back {
+            padding:
+                8px 14px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                7px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height:
+                calc(100vh - 70px);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
+
+            padding:
+                80px 24px;
+
+            background:
+
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(0, 168, 255, 0.13),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 75% 60%,
+                    rgba(255, 48, 79, 0.05),
+                    transparent 35%
+                );
+        }
+
+
+        .hero-container {
+            width:
+                100%;
+
+            max-width:
+                1000px;
+
+            margin:
+                auto;
+        }
+
+
+        .compresslab-logo {
+            display:
+                block;
+
+            width:
+                min(430px, 88vw);
+
+            height:
+                auto;
+
+            margin:
+                0 auto 25px;
+
+            filter:
+                drop-shadow(
+                    0 0 22px
+                    rgba(0, 168, 255, 0.18)
+                );
+        }
+
+
+        .badge {
+            display:
+                inline-block;
+
+            margin-bottom:
+                18px;
+
+            padding:
+                6px 13px;
+
+            border-radius:
+                999px;
+
+            border:
+                1px solid rgba(76, 255, 145, 0.30);
+
+            background:
+                rgba(76, 255, 145, 0.07);
+
+            color:
+                var(--green);
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .eyebrow {
+            color:
+                var(--blue);
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                3px;
+
+            font-size:
+                0.78rem;
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        h1 {
+            font-size:
+                clamp(
+                    2.8rem,
+                    7vw,
+                    5.5rem
+                );
+
+            line-height:
+                1.05;
+
+            margin-bottom:
+                22px;
+        }
+
+
+        h1 .rsc {
+            color:
+                var(--blue);
+        }
+
+
+        h1 .lab {
+            color:
+                var(--red);
+        }
+
+
+        .hero-description {
+            max-width:
+                800px;
+
+            margin:
+                0 auto 20px;
+
+            color:
+                #b9c9d6;
+
+            font-size:
+                1.10rem;
+        }
+
+
+        .version {
+            color:
+                var(--muted);
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .hero-buttons {
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .button {
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                215px;
+
+            padding:
+                13px 24px;
+
+            border-radius:
+                8px;
+
+            font-weight:
+                700;
+
+            transition:
+                0.25s;
+        }
+
+
+        .button-primary {
+            background:
+                var(--blue);
+
+            color:
+                #00101b;
+
+            border:
+                1px solid var(--blue);
+        }
+
+
+        .button-primary:hover {
+            background:
+                var(--blue-light);
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 0 25px
+                rgba(0, 168, 255, 0.30);
+        }
+
+
+        .button-secondary {
+            color:
+                var(--text);
+
+            background:
+                transparent;
+
+            border:
+                1px solid var(--blue);
+        }
+
+
+        .button-secondary:hover {
+            background:
+                rgba(0, 168, 255, 0.08);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        section {
+            padding:
+                90px 24px;
+        }
+
+
+        .container {
+            max-width:
+                var(--max-width);
+
+            margin:
+                auto;
+        }
+
+
+        .section-heading {
+            text-align:
+                center;
+
+            max-width:
+                800px;
+
+            margin:
+                0 auto 50px;
+        }
+
+
+        .section-heading .small {
+            color:
+                var(--blue);
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                3px;
+
+            text-transform:
+                uppercase;
+
+            font-size:
+                0.78rem;
+        }
+
+
+        .section-heading h2 {
+            margin-top:
+                10px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+        }
+
+
+        .section-heading p {
+            color:
+                var(--muted);
+        }
+
+
+        /* =========================================================
+           INTERFAZ
+        ========================================================= */
+
+        .interface-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 168, 255, 0.035),
+                    transparent
+                );
+        }
+
+
+        .interface-frame {
+            max-width:
+                1080px;
+
+            margin:
+                auto;
+
+            padding:
+                2px;
+
+            border-radius:
+                18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    rgba(88, 216, 255, 0.25),
+                    var(--red)
+                );
+
+            box-shadow:
+                0 30px 75px
+                rgba(0, 0, 0, 0.55),
+
+                0 0 35px
+                rgba(0, 168, 255, 0.10);
+        }
+
+
+        .interface-inner {
+            padding:
+                10px;
+
+            border-radius:
+                16px;
+
+            background:
+                #02070c;
+        }
+
+
+        .interface-inner img {
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                auto;
+
+            border-radius:
+                10px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+        }
+
+
+        .interface-caption {
+            text-align:
+                center;
+
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FEATURES
+        ========================================================= */
+
+        .feature-grid {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap:
+                22px;
+        }
+
+
+        .feature-card {
+            padding:
+                30px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            transition:
+                0.3s;
+        }
+
+
+        .feature-card:hover {
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(0, 168, 255, 0.55);
+
+            box-shadow:
+                0 18px 45px
+                rgba(0, 0, 0, 0.28);
+        }
+
+
+        .feature-icon {
+            font-size:
+                2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .feature-card h3 {
+            margin-bottom:
+                10px;
+
+            font-size:
+                1.25rem;
+        }
+
+
+        .feature-card p {
+            color:
+                var(--muted);
+
+            font-size:
+                0.92rem;
+        }
+
+
+        /* =========================================================
+           FORMATOS
+        ========================================================= */
+
+        .format-section {
+            background:
+                rgba(0, 0, 0, 0.14);
+        }
+
+
+        .format-grid {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap:
+                20px;
+
+            max-width:
+                900px;
+
+            margin:
+                auto;
+        }
+
+
+        .format-card {
+            padding:
+                34px 24px;
+
+            text-align:
+                center;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(11, 28, 44, 0.95),
+                    rgba(4, 11, 18, 0.95)
+                );
+
+            border:
+                1px solid var(--border);
+
+            transition:
+                0.25s;
+        }
+
+
+        .format-card:hover {
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(0, 168, 255, 0.50);
+        }
+
+
+        .format-card strong {
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                1.6rem;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .format-card span {
+            color:
+                var(--muted);
+
+            font-size:
+                0.90rem;
+        }
+
+
+        /* =========================================================
+           WORKFLOW
+        ========================================================= */
+
+        .workflow-grid {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(240px, 1fr)
+                );
+
+            gap:
+                20px;
+        }
+
+
+        .workflow-card {
+            padding:
+                30px;
+
+            border-radius:
+                14px;
+
+            background:
+                var(--panel);
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .workflow-number {
+            display:
+                inline-flex;
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-bottom:
+                15px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(0, 168, 255, 0.12);
+
+            border:
+                1px solid rgba(0, 168, 255, 0.35);
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                800;
+        }
+
+
+        .workflow-card h3 {
+            margin-bottom:
+                8px;
+        }
+
+
+        .workflow-card p {
+            color:
+                var(--muted);
+
+            font-size:
+                0.90rem;
+        }
+
+
+        /* =========================================================
+           TERMINAL
+        ========================================================= */
+
+        .terminal-box {
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                14px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid rgba(0, 168, 255, 0.28);
+
+            box-shadow:
+                0 18px 50px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        .terminal-header {
+            padding:
+                13px 18px;
+
+            background:
+                #0b1219;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.82rem;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.07);
+        }
+
+
+        .terminal {
+            padding:
+                27px;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #bdeaff;
+
+            line-height:
+                2;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .terminal-line {
+            white-space:
+                nowrap;
+        }
+
+
+        .prompt {
+            color:
+                var(--green);
+
+            margin-right:
+                8px;
+        }
+
+
+        .command {
+            color:
+                #f4f8fc;
+        }
+
+
+        /* =========================================================
+           DOWNLOAD
+        ========================================================= */
+
+        .download-section {
+            background:
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .download-box {
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                55px 30px;
+
+            text-align:
+                center;
+
+            border-radius:
+                18px;
+
+            border:
+                1px solid rgba(0, 168, 255, 0.30);
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(0, 168, 255, 0.11),
+                    transparent 60%
+                ),
+
+                var(--panel);
+        }
+
+
+        .download-box h2 {
+            font-size:
+                2.2rem;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .download-box > p {
+            max-width:
+                670px;
+
+            margin:
+                0 auto 25px;
+
+            color:
+                var(--muted);
+        }
+
+
+        .download-buttons {
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                14px;
+
+            margin-bottom:
+                25px;
+        }
+
+
+        .download-info {
+            margin-top:
+                22px !important;
+
+            margin-bottom:
+                12px !important;
+
+            color:
+                #c6d5df !important;
+
+            font-size:
+                0.92rem;
+        }
+
+
+        .checksum {
+            max-width:
+                760px !important;
+
+            margin:
+                0 auto 28px !important;
+
+            padding:
+                15px;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid rgba(0, 168, 255, 0.22);
+
+            color:
+                var(--muted) !important;
+
+            font-size:
+                0.82rem !important;
+
+            overflow-wrap:
+                anywhere;
+        }
+
+
+        .checksum code {
+            color:
+                var(--green);
+
+            font-family:
+                "Courier New",
+                monospace;
+        }
+
+
+        .install-title {
+            margin-top:
+                30px;
+
+            margin-bottom:
+                12px;
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                700;
+        }
+
+
+        .install-command {
+            max-width:
+                650px;
+
+            margin:
+                10px auto 0;
+
+            padding:
+                15px 20px;
+
+            text-align:
+                left;
+
+            border-radius:
+                8px;
+
+            background:
+                #010407;
+
+            border:
+                1px solid rgba(0, 168, 255, 0.22);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            color:
+                #dff6ff;
+
+            overflow-x:
+                auto;
+        }
+
+
+        .install-command span {
+            color:
+                var(--green);
+        }
+
+
+        .download-note {
+            margin-top:
+                22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                0.85rem;
+        }
+
+
+        /* =========================================================
+           EDUCATION
+        ========================================================= */
+
+        .education-box {
+            max-width:
+                900px;
+
+            margin:
+                auto;
+
+            padding:
+                40px;
+
+            text-align:
+                center;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--panel);
+        }
+
+
+        .education-box h2 {
+            margin-bottom:
+                15px;
+        }
+
+
+        .education-box p {
+            color:
+                var(--muted);
+
+            max-width:
+                720px;
+
+            margin:
+                auto;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding:
+                48px 24px;
+
+            text-align:
+                center;
+
+            background:
+                #02060a;
+
+            border-top:
+                1px solid var(--border);
+        }
+
+
+        .footer-brand {
+            font-size:
+                1.3rem;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                7px;
+        }
+
+
+        footer p {
+            color:
+                var(--muted);
+
+            font-size:
+                0.88rem;
+        }
+
+
+        .developer {
+            margin-top:
+                10px;
+
+            color:
+                #d9e6ef;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .compresslab-logo {
+                width:
+                    min(350px, 82vw);
+            }
+        }
+
+
+        @media (max-width: 760px) {
+
+            .nav-links a:not(.back) {
+                display:
+                    none;
+            }
+
+
+            .hero {
+                min-height:
+                    auto;
+
+                padding-top:
+                    60px;
+            }
+
+
+            section {
+                padding:
+                    65px 18px;
+            }
+
+
+            .education-box {
+                padding:
+                    30px 22px;
+            }
+
+
+            .terminal {
+                font-size:
+                    0.82rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+    <nav>
+
+        <a
+            href="../../"
+            class="brand"
+        >
+
+            <span class="blue">
+                RSC
+            </span>
+
+            Compress<span class="red">Lab</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#interfaz">
+                Interfaz
+            </a>
+
+            <a href="#caracteristicas">
+                Características
+            </a>
+
+            <a href="#formatos">
+                Formatos
+            </a>
+
+            <a href="#instalacion">
+                Instalación
+            </a>
+
+            <a
+                href="../../"
+                class="back"
+            >
+                ← Volver a RSC
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+        <img
+            src="../../assets/images/rsc-compresslab.png"
+            alt="RSC CompressLab"
+            class="compresslab-logo"
+        >
+
+
+        <div>
+
+            <span class="badge">
+                Disponible
+            </span>
+
+        </div>
+
+
+        <div class="eyebrow">
+
+            Compression & Archive Laboratory
+
+        </div>
+
+
+        <h1>
+
+            <span class="rsc">
+                RSC
+            </span>
+
+            Compress<span class="lab">Lab</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Aplicación gráfica para Kali Linux diseñada para
+            crear, inspeccionar y extraer archivos comprimidos
+            ZIP, 7Z y RAR, con soporte para contraseña opcional
+            y detección automática del formato.
+
+        </p>
+
+
+        <div class="version">
+
+            Versión 0.1.0
+            • Kali Linux
+            • PySide6 / Qt 6
+            • AMD64
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#instalacion"
+                class="button button-primary"
+            >
+                Descargar para Kali
+            </a>
+
+
+            <a
+                href="#interfaz"
+                class="button button-secondary"
+            >
+                Ver la aplicación
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTERFAZ
+========================================================= -->
+
+<section
+    id="interfaz"
+    class="interface-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Interfaz gráfica
+            </span>
+
+
+            <h2>
+                RSC CompressLab en acción
+            </h2>
+
+
+            <p>
+
+                Trabaje con archivos ZIP, 7Z y RAR desde
+                una interfaz gráfica integrada, seleccionando
+                archivos, carpetas, destino, formato y contraseña.
+
+            </p>
+
+        </div>
+
+
+        <div class="interface-frame">
+
+            <div class="interface-inner">
+
+                <img
+                    src="../../assets/images/interfaz-compresslab-kali.png"
+                    alt="Interfaz gráfica de RSC CompressLab"
+                >
+
+            </div>
+
+        </div>
+
+
+        <p class="interface-caption">
+
+            Interfaz gráfica de RSC CompressLab 0.1.0
+            ejecutándose en Kali Linux.
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CARACTERÍSTICAS
+========================================================= -->
+
+<section id="caracteristicas">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Funcionalidades
+            </span>
+
+
+            <h2>
+                Compresión y extracción desde una sola herramienta
+            </h2>
+
+
+            <p>
+
+                RSC CompressLab centraliza las operaciones
+                más habituales con archivos comprimidos dentro
+                de una interfaz gráfica sencilla e integrada
+                con Kali Linux.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Crear archivos
+                </h3>
+
+                <p>
+
+                    Comprima uno o varios archivos o carpetas
+                    completas en formatos ZIP, 7Z o RAR.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔓
+                </div>
+
+                <h3>
+                    Extraer archivos
+                </h3>
+
+                <p>
+
+                    Seleccione un archivo comprimido y extraiga
+                    su contenido en la carpeta de destino
+                    seleccionada.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Protección con contraseña
+                </h3>
+
+                <p>
+
+                    Utilice contraseña opcional al crear archivos
+                    y proporcione la clave cuando necesite
+                    acceder a contenido protegido.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Inspección
+                </h3>
+
+                <p>
+
+                    Consulte la estructura y el contenido interno
+                    de un archivo comprimido antes de extraerlo.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ✅
+                </div>
+
+                <h3>
+                    Verificación
+                </h3>
+
+                <p>
+
+                    Compruebe la integridad del archivo y detecte
+                    errores de contraseña o archivos incompatibles.
+
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🖥️
+                </div>
+
+                <h3>
+                    Integración con Kali
+                </h3>
+
+                <p>
+
+                    Inicie RSC CompressLab desde el menú de
+                    aplicaciones de Kali Linux o mediante
+                    el comando global compresslab.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FORMATOS
+========================================================= -->
+
+<section
+    id="formatos"
+    class="format-section"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Formatos soportados
+            </span>
+
+
+            <h2>
+                ZIP, 7Z y RAR
+            </h2>
+
+
+            <p>
+
+                Los tres formatos pueden utilizarse desde
+                la misma interfaz para creación, inspección
+                y extracción.
+
+            </p>
+
+        </div>
+
+
+        <div class="format-grid">
+
+
+            <div class="format-card">
+
+                <strong>
+                    ZIP
+                </strong>
+
+                <span>
+                    Crear • Extraer • Contraseña • Inspeccionar
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    7Z
+                </strong>
+
+                <span>
+                    Crear • Extraer • Contraseña • Inspeccionar
+                </span>
+
+            </div>
+
+
+            <div class="format-card">
+
+                <strong>
+                    RAR
+                </strong>
+
+                <span>
+                    Crear • Extraer • Contraseña • Inspeccionar
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FLUJO
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Flujo de trabajo
+            </span>
+
+
+            <h2>
+                Simple y directo
+            </h2>
+
+
+            <p>
+
+                Seleccione el contenido, configure la operación
+                y deje que RSC CompressLab ejecute el motor
+                correspondiente.
+
+            </p>
+
+        </div>
+
+
+        <div class="workflow-grid">
+
+
+            <div class="workflow-card">
+
+                <span class="workflow-number">
+                    1
+                </span>
+
+                <h3>
+                    Seleccionar
+                </h3>
+
+                <p>
+
+                    Agregue uno o varios archivos o seleccione
+                    una carpeta completa.
+
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <span class="workflow-number">
+                    2
+                </span>
+
+                <h3>
+                    Configurar
+                </h3>
+
+                <p>
+
+                    Elija ZIP, 7Z o RAR, indique el destino
+                    y agregue contraseña si lo desea.
+
+                </p>
+
+            </div>
+
+
+            <div class="workflow-card">
+
+                <span class="workflow-number">
+                    3
+                </span>
+
+                <h3>
+                    Procesar
+                </h3>
+
+                <p>
+
+                    Cree, inspeccione o extraiga el archivo
+                    directamente desde RSC CompressLab.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CLI
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="small">
+                Kali Linux
+            </span>
+
+
+            <h2>
+                Inicio desde terminal
+            </h2>
+
+
+            <p>
+
+                Después de instalar el paquete puede iniciar
+                RSC CompressLab desde el menú de aplicaciones
+                o mediante su comando global.
+
+            </p>
+
+        </div>
+
+
+        <div class="terminal-box">
+
+
+            <div class="terminal-header">
+
+                kali@rsc:~
+
+            </div>
+
+
+            <div class="terminal">
+
+
+                <div class="terminal-line">
+
+                    <span class="prompt">
+                        $
+                    </span>
+
+                    <span class="command">
+                        compresslab
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INSTALACIÓN
+========================================================= -->
+
+<section
+    id="instalacion"
+    class="download-section"
+>
+
+    <div class="container">
+
+
+        <div class="download-box">
+
+
+            <div class="eyebrow">
+
+                Kali Linux
+
+            </div>
+
+
+            <h2>
+                Instalar RSC CompressLab
+            </h2>
+
+
+            <p>
+
+                Descargue el paquete Debian oficial de
+                RSC CompressLab 0.1.0 e instálelo directamente
+                en Kali Linux.
+
+            </p>
+
+
+            <div class="download-buttons">
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-compresslab/releases/download/v0.1.0/rsc-compresslab_0.1.0_amd64.deb"
+                    class="button button-primary"
+                >
+                    Descargar RSC CompressLab 0.1.0
+                </a>
+
+
+                <a
+                    href="https://github.com/eaim123/rsc-compresslab"
+                    class="button button-secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ver código en GitHub
+                </a>
+
+
+            </div>
+
+
+            <p class="download-info">
+
+                Kali Linux • AMD64 • Versión 0.1.0
+
+            </p>
+
+
+            <p class="checksum">
+
+                SHA-256:
+                <code>
+                    4e6e37d2db23b4b8bcaca53ca20da9eb9219a81474b7a00d631f6e1bab96cca2
+                </code>
+
+            </p>
+
+
+            <div class="install-title">
+
+                1. Actualizar los repositorios
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt update
+
+            </div>
+
+
+            <div class="install-title">
+
+                2. Instalar el paquete descargado
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                sudo apt install ./rsc-compresslab_0.1.0_amd64.deb
+
+            </div>
+
+
+            <div class="install-title">
+
+                3. Iniciar RSC CompressLab
+
+            </div>
+
+
+            <div class="install-command">
+
+                <span>$</span>
+                compresslab
+
+            </div>
+
+
+            <div class="download-note">
+
+                Después de la instalación también puede
+                iniciar RSC CompressLab desde el menú de
+                aplicaciones de Kali Linux.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EDUCACIÓN
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="education-box">
+
+
+            <div class="eyebrow">
+
+                RSC Education
+
+            </div>
+
+
+            <h2>
+
+                Una herramienta más de la familia RSC
+
+            </h2>
+
+
+            <p>
+
+                RSC CompressLab forma parte del conjunto
+                de aplicaciones desarrolladas por RSC para
+                facilitar tareas prácticas, aprendizaje,
+                experimentación y trabajo técnico dentro
+                de entornos Linux y de laboratorio.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        RSC CompressLab
+
+    </div>
+
+
+    <p>
+
+        Compression & Archive Laboratory
+
+    </p>
+
+
+    <p class="developer">
+
+        Desarrollado por Eddy Infante M
+
+    </p>
+
+
+    <p>
+
+        © 2026 RSC
+        • Routing
+        • Switching
+        • Cyber
+
+    </p>
+
+
+    <p>
+
+        ZIP • 7Z • RAR • Kali Linux
+
+    </p>
+
+
+</footer>
+
+
+</body>
+
+</html>

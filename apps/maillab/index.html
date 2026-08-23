@@ -1005,6 +1005,69 @@
         }
 
 
+        .checksum-box {
+
+            max-width:
+                760px;
+
+            margin:
+                20px auto
+                0;
+
+            padding:
+                18px 20px;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(0, 0, 0, 0.28);
+
+            border:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .checksum-title {
+
+            display:
+                block;
+
+            color:
+                var(--blue-light);
+
+            font-weight:
+                700;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .checksum-box code {
+
+            display:
+                block;
+
+            color:
+                #d8e8f3;
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            font-size:
+                0.80rem;
+
+            word-break:
+                break-all;
+
+        }
+
+
         .install-title {
 
             margin-top:
@@ -1810,14 +1873,19 @@
             </p>
 
 
-            <p class="download-info">
+            <!-- =================================================
+                 SHA-256
+            ================================================== -->
 
-                SHA-256:
-                <code>
-                    7fb4e8f4dcc3c5124c3be2dfa5f9578680cb46449d1434f973ec6be81c23f8d1
-                </code>
+            <div class="checksum-box">
 
-            </p>
+                <span class="checksum-title">
+                    SHA-256 del instalador
+                </span>
+
+                <code>7fb4e8f4dcc3c5124c3be2dfa5f9578680cb46449d1434f973ec6be81c23f8d1</code>
+
+            </div>
 
 
             <div class="install-title">
